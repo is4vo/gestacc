@@ -44,9 +44,9 @@
                 </li>
 
                 <li>
-                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Actas</a>
-
-                    <ul class="collapse list-unstyled" id="actas-submenu">
+                    <?php $rutas = array('nuevaActa', 'actasPendientes', 'buscarActas')?>
+                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Actas</a>
+                    <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="actas-submenu">
                         <li class ="{{ setActive('nuevaActa') }}">
                             <a href="<?php echo route('nuevaActa') ?>">Crear actas</a>
                         </li>
@@ -60,8 +60,9 @@
                 </li>
 
                 <li>
-                    <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reuniones</a>
-                    <ul class="collapse list-unstyled" id="reuniones-submenu">
+                <?php $rutas = array('reunion')?>
+                    <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Reuniones</a>
+                    <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="reuniones-submenu">
                         <li class ="{{ setActive('reunion') }}">
                             <a href="<?php echo route('reunion') ?>">Crear reunión</a>
                         </li>
@@ -69,8 +70,9 @@
                 </li>
 
                 <li>
-                    <a href="#tareas-submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tareas</a>
-                    <ul class="collapse list-unstyled" id="tareas-submenu">
+                    <?php $rutas = array('tareas')?>
+                    <a href="#tareas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Tareas</a>
+                    <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="tareas-submenu">
                         <li class ="{{ setActive('tareas') }}">
                             <a href="<?php echo route('tareas') ?>">Ver mis tareas</a>
                         </li>

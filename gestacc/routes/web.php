@@ -17,15 +17,15 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/nuevaacta', function(){
+Route::get('/nueva-acta', function(){
     return view('nuevaActa');
 })->name('nuevaActa');
 
-Route::get('/actaspendientes', function(){
+Route::get('/actas-pendientes', function(){
     return view('actasPendientes');
 })->name('actasPendientes');
 
-Route::get('/buscaractas', function(){
+Route::get('/buscar-actas', function(){
     return view('buscarActas');
 })->name('buscarActas');
 
