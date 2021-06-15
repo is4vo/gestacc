@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +21,11 @@ Route::get('/', function () {
 
 Route::get('/nueva-acta', function(){
     return view('nuevaActa');
-})->name('nuevaActa');
+})->middleware('can:nuevaActa')->name('nuevaActa');
 
 Route::get('/actas-pendientes', function(){
     return view('actasPendientes');
-})->name('actasPendientes');
+})->middleware('can:actasPendientes')->name('actasPendientes');
 
 Route::get('/buscar-actas', function(){
     return view('buscarActas');
@@ -31,17 +33,12 @@ Route::get('/buscar-actas', function(){
 
 Route::get('/tareas', function(){
     return view('listaTareas');
-})->name('tareas');
+})->middleware('can:tareas')->name('tareas');
 
 Route::get('/reunion', function(){
     return view('nuevaReunion');
-})->name('reunion');
+})->middleware('can:reunion')->name('reunion');
 
-Route::get('/usuarios', function(){
-    return view('usuarios');
-})->name('usuarios');
+Route::resource('usuarios', UserController::class)->except('show')->middleware('can:usuarios')->names('usuarios');
 
-Route::get('/login', function(){
-    return view('login');
-})->name('iniciarSesion');
-
+Auth::routes(['reset' => false]);

@@ -34,61 +34,90 @@
                     <h1>GESTACC</h1>
                 </a>
                 <br>
-                <h6> {{ $nombre ?? "Usuario externo" }}</h6>
+                @auth
+                <h6>{{ auth()->user()->name}} </h6>
+                <h6>{{ auth()->user()->getRoleNames()[0]}} </h6>
+                @endauth
+                @guest
+                    <h6>Usuario externo</h6>
+                @endguest
             </div>
 
             <ul class="list-unstyled components">
                 
                 <li class ="{{ setActive('home') }}">
-                    <a href=<?php echo route('home') ?>>Inicio</a>
+                    <a href="{{ route('home') }}"> <i class="fas fa-home"></i> Inicio</a>
                 </li>
 
                 <li>
                     <?php $rutas = array('nuevaActa', 'actasPendientes', 'buscarActas')?>
-                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Actas</a>
+                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-file"></i> Actas</a>
                     <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="actas-submenu">
-                        <li class ="{{ setActive('nuevaActa') }}">
-                            <a href="<?php echo route('nuevaActa') ?>">Crear actas</a>
-                        </li>
-                        <li class ="{{ setActive('actasPendientes') }}">
-                            <a href="<?php echo route('actasPendientes') ?>">Actas pendientes</a>
-                        </li>
+                        @can('nuevaActa')
+                            <li class ="{{ setActive('nuevaActa') }}">
+                                <a href="{{ route('nuevaActa') }}">Crear actas</a>
+                            </li>
+                        @endcan
+                        @can('actasPendientes')
+                            <li class ="{{ setActive('actasPendientes') }}">
+                                <a href="{{ route('actasPendientes') }}">Actas pendientes</a>
+                            </li>
+                        @endcan
                         <li class ="{{ setActive('buscarActas') }}">
-                            <a href="<?php echo route('buscarActas') ?>">Buscar actas</a>
+                            <a href="{{ route('buscarActas') }}">Buscar actas</a>
                         </li>
                     </ul>
                 </li>
 
-                <li>
-                <?php $rutas = array('reunion')?>
-                    <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Reuniones</a>
-                    <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="reuniones-submenu">
-                        <li class ="{{ setActive('reunion') }}">
-                            <a href="<?php echo route('reunion') ?>">Crear reunión</a>
-                        </li>
-                    </ul>
-                </li>
+                @can('reunion')
+                    <li>
+                    <?php $rutas = array('reunion')?>
+                        <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-handshake"></i> Reuniones</a>
+                        <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="reuniones-submenu">
+                            <li class ="{{ setActive('reunion') }}">
+                                <a href="{{ route('reunion') }}">Crear reunión</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
 
-                <li>
-                    <?php $rutas = array('tareas')?>
-                    <a href="#tareas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle">Tareas</a>
-                    <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="tareas-submenu">
-                        <li class ="{{ setActive('tareas') }}">
-                            <a href="<?php echo route('tareas') ?>">Ver mis tareas</a>
-                        </li>
-                    </ul>
-                </li>
+                @can('tareas')
+                    <li>
+                        <?php $rutas = array('tareas')?>
+                        <a href="#tareas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-tasks"></i> Tareas</a>
+                        <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="tareas-submenu">
+                            <li class ="{{ setActive('tareas') }}">
+                                <a href="{{ route('tareas') }}">Ver mis tareas</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
 
-                <li class ="{{ setActive('usuarios') }}">
-                    <a href="<?php echo route('usuarios') ?>">Usuarios</a>
-                </li>
+                @can('usuarios')
+                    <li class ="{{ setActive('usuarios') }}">
+                        <a href="{{ route('usuarios.index') }}"><i class="fas fa-users"></i> Usuarios</a>
+                    </li>
+                @endcan
             </ul>
+            @guest
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="{{ route('login') }}" class="boton"> <i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+                    </li>
+                </ul>
+            @else
             <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="<?php echo route('iniciarSesion') ?>" class="boton">Iniciar sesión</a>
-                </li>
-            </ul>
+                    <li>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="boton"> <i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                    </li>
+                </ul>
+            @endguest
+
         </nav>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     
         <div id="content">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -109,6 +138,12 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
+
+        function myFunction()
+        {
+            alert("funciona")
+        };
+
     </script>
     
 </body>
