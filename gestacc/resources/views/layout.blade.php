@@ -35,8 +35,8 @@
                 </a>
                 <br>
                 @auth
-                <h6>{{ auth()->user()->name}} </h6>
-                <h6>{{ auth()->user()->getRoleNames()[0]}} </h6>
+                    <h6>{{ auth()->user()->name}} </h6>
+                    <h6>{{ auth()->user()->getRoleNames()[0]}} </h6>
                 @endauth
                 @guest
                     <h6>Usuario externo</h6>
@@ -51,7 +51,7 @@
 
                 <li>
                     <?php $rutas = array('nuevaActa', 'actasPendientes', 'buscarActas')?>
-                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-file"></i> Actas</a>
+                    <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-folder-open"></i></i> Actas</a>
                     <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="actas-submenu">
                         @can('nuevaActa')
                             <li class ="{{ setActive('nuevaActa') }}">

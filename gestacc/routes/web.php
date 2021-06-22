@@ -20,23 +20,23 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/nueva-acta', function(){
-    return view('nuevaActa');
+    return view('actas.nuevaActa');
 })->middleware('can:nuevaActa')->name('nuevaActa');
 
 Route::get('/actas-pendientes', function(){
-    return view('actasPendientes');
+    return view('actas.actasPendientes');
 })->middleware('can:actasPendientes')->name('actasPendientes');
 
 Route::get('/buscar-actas', function(){
-    return view('buscarActas');
+    return view('actas.buscarActas');
 })->name('buscarActas');
 
 Route::get('/tareas', function(){
-    return view('listaTareas');
+    return view('tareas.listaTareas');
 })->middleware('can:tareas')->name('tareas');
 
 Route::get('/reunion', function(){
-    return view('nuevaReunion');
+    return view('reuniones.nuevaReunion');
 })->middleware('can:reunion')->name('reunion');
 
 Route::resource('usuarios', UserController::class)->except('show')->middleware('can:usuarios')->names('usuarios');

@@ -10026,3 +10026,10 @@ h3 {
       display: none;
   }
 }
+
+/* CUSTOM */
+
+.form-control {
+  border-radius: 15px;
+  background-color: #f8f8f8;
+}
