@@ -18,7 +18,6 @@
         
                                     <div class="col-md-7">
                                         <input id="accion" type="text" class="form-control @error('accion') is-invalid @enderror" name="accion" required autocomplete="name" autofocus placeholder="Ingrese accion a realizar">
-        
                                         @error('accion')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -28,13 +27,24 @@
                                 </div>
 
                                 <div class="form-group row">
+                                    <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo:') }}</label>
+        
+                                    <div class="col-md-7">
+                                        <select for="tipo" id="tipo" name="tipo" class="form-control">
+                                            <option value="Ejecución">Ejecución</option>
+                                            <option value="Acuerdo">Acuerdo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="encargado" class="col-md-4 col-form-label text-md-right">{{ __('Encargado:') }}</label>
         
                                     <div class="col-md-7">
                                         <select for="encargado" id="encargado" name="encargado" class="form-control">
-                                            {{-- @foreach($usuarios as $usuario)
+                                            @foreach($usuarios as $usuario)
                                                 <option value="{{$usuario->id}}">{{$usuario->name}}</option>
-                                            @endforeach --}}
+                                            @endforeach
 
                                     </select>
                                     </div>
@@ -45,6 +55,7 @@
         
                                     <div class="col-md-7">
                                         <input id="fechaVencimiento" type="text" class="form-control @error('fechaVencimiento') is-invalid @enderror" name="fechaVencimiento" required autocomplete="fechaVencimiento" autofocus placeholder="Ingrese fecha de vencimiento">
+                                        {{-- Si es tipo acuerdo fecha no es necesaria --}}
         
                                         @error('fechaVencimiento')
                                             <span class="invalid-feedback" role="alert">

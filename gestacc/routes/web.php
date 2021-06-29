@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActaController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -19,17 +20,13 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/nueva-acta', function(){
-    return view('actas.nuevaActa');
-})->middleware('can:nuevaActa')->name('nuevaActa');
-
 Route::get('/actas-pendientes', function(){
     return view('actas.actasPendientes');
-})->middleware('can:actasPendientes')->name('actasPendientes');
+})->middleware('can:actasPendientes')->name('actas.actasPendientes');
 
 Route::get('/buscar-actas', function(){
     return view('actas.buscarActas');
-})->name('buscarActas');
+})->name('actas.buscarActas');
 
 Route::get('/tareas', function(){
     return view('tareas.listaTareas');
@@ -40,5 +37,6 @@ Route::get('/reunion', function(){
 })->middleware('can:reunion')->name('reunion');
 
 Route::resource('usuarios', UserController::class)->except('show')->middleware('can:usuarios')->names('usuarios');
+Route::resource('actas', ActaController::class)->only('create', 'store')->middleware('can:nuevaActa')->names('actas');
 
 Auth::routes(['reset' => false]);

@@ -7,60 +7,67 @@
 @section('content')
 
     <div>
-        <form action="">
+        <form method="POST" action="{{ route('actas.store') }}">
             <div class="card">
                 <div class="card-header">
                     <h5><b>Datos de reunión</b></h5>
                 </div>
                 <div class="card-body">
                     <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Número de reunión:</b></h6>
-                        <input type="text" class="form-control" id="reunion" name="reunion" value="658" readonly>
+                        <div class="col-md-4 text-left">
+                            <h6><b>Número de reunión:</b></h6>
+                            <input type="text" class="form-control" id="reunion" name="reunion" value="658" readonly>
+                        </div>
+                        <div class="col-md-4 text-left">
+                            <h6><b>Tipo de reunión:</b></h6>
+                            <input type="text" class="form-control" id="tipoReunion" name="tipoReunion" value="Extraordinaria" readonly>
+                        </div>
+                        <div class="col-md-4 text-left">
+                            <h6><b>Fecha:</b></h6>
+                            <input type="text" class="form-control" id="fecha" name="fecha" value="10/06/2021" readonly>
+                        </div>
                     </div>
                     <hr>
                     <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Tipo de reunión:</b></h6>
-                        <input type="text" class="form-control" id="tipoReunion" name="tipoReunion" value="Extraordinaria" readonly>
-                    </div>
-                    <hr>
-                    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Fecha:</b></h6>
-                        <input type="text" class="form-control" id="fecha" name="fecha" value="10/06/2021" readonly>
-                    </div>
-                    
-                    <hr>
-                    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Hora de inicio:</b></h6>
-                        <input type="text" class="form-control" id="horaInicio" name="horaInicio" value="11:00" readonly>
-                    </div>
-                    <hr>
-                    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Hora de término:</b></h6>
-                        <input type="text" class="form-control" id="horaTermino" name="horaTermino" value="12:00" readonly>
+                        
+                        <div class="col-md-6 text-left">
+                            <h6><b>Hora de inicio:</b></h6>
+                            <input type="text" class="form-control" id="horaInicio" name="horaInicio" value="11:00">
+                        </div>
+                        <div class="col-md-6 text-left">
+                            <h6><b>Hora de término:</b></h6>
+                            <input type="text" class="form-control" id="horaTermino" name="horaTermino" value="12:00">
+                        </div>
                     </div>
                 </div>
             </div>
             <br>
             <div class="card">
                 <div class="card-header">
-                    <h5><b>Asistentes</b></h5>
+                    <div class="form-group row">
+                        <div class="col-md-8">
+                            <h5><b>Asistentes</b></h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <a href="" style="color: gray"> <i class="fas fa-plus-circle"></i> Agregar asistente</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Miembros:</b></h6>
-                        <ul>
-                            <li>José Pérez</li>
-                            <li>Francisca Arenas</li>
-                            <li>Marcelo Fuentes</li>
-                        </ul>
-                    </div>
-                    <hr>
-                    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                        <h6><b>Invitados:</b></h6>
-                        <ul>
-                            <li>María Fuentealba</li>
-                            <li>Pablo Farías</li>
-                        </ul>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <table class="table table-sm">
+                                <thead class="thead-light">
+                                    <th>Participante</th>
+                                    <th>Asiste</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>José Pérez</td>
+                                        <td><input type="checkbox" id="asiste"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>

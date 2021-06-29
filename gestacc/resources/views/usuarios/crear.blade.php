@@ -48,7 +48,7 @@
                                         <select for="rol" id="rol" name="rol" class="form-control">
                                             <option value="Miembro">Miembro</option>
                                             <option value="Invitado">Invitado</option>
-                                    </select>
+                                        </select>
                                     </div>
                                 </div>
         
