@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acta;
+use App\Models\Asistente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class ActaController extends Controller
 {
@@ -26,7 +28,12 @@ class ActaController extends Controller
     public function create()
     {
         $usuarios = User::all();
-        return view('actas.nuevaActa', compact('usuarios'));
+        $acta = new Acta();
+        $acta->numero_reunion = "232";
+        $acta->tipo_reunion = "Extraordinaria";
+        $acta->hora_inicio = "12:00";
+        $acta->hora_termino = "13:00";
+        return view('actas.crearActa', compact('usuarios', 'acta'));
     }
 
     /**

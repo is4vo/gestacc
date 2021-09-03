@@ -8,14 +8,12 @@
     <title>GESTACC - Sistema de gestión de actas</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script> 
+    <script src="{{ asset('js/app.js') }}"></script> 
     <script src="https://kit.fontawesome.com/6dd0880117.js" crossorigin="anonymous"></script>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto&display=swap" rel="stylesheet">
 
@@ -45,7 +43,7 @@
 
             <ul class="list-unstyled components">
                 
-                <li class ="{{ setActive('home') }}">
+                <li class = "{{ setActive('home') }}">
                     <a href="{{ route('home') }}"> <i class="fas fa-home"></i> Inicio</a>
                 </li>
 
@@ -131,20 +129,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
+            $('.list-unstyled').on('click', function () {
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-
-        function myFunction()
-        {
-            alert("funciona")
-        };
-
     </script>
     
 </body>

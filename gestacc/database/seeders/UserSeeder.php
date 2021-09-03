@@ -31,5 +31,59 @@ class UserSeeder extends Seeder
             'email' => 'mpena@gmail.com',
             'password' => bcrypt('12345678')
         ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpendfa@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenfa@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenwa@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenqa@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenda@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpefna@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpfena@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenga@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
+
+        User::create([
+            'name' => 'Maria Peña',
+            'email' => 'mpenadsds@gmail.com',
+            'password' => bcrypt('12345678')
+        ])->assignRole('Invitado');
     }
 }

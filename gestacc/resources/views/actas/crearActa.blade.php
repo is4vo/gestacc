@@ -16,15 +16,15 @@
                     <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
                         <div class="col-md-4 text-left">
                             <h6><b>Número de reunión:</b></h6>
-                            <input type="text" class="form-control" id="reunion" name="reunion" value="658" readonly>
+                            <input type="text" class="form-control" id="reunion" name="reunion" value="{{ $acta->numero_reunion }}" readonly>
                         </div>
                         <div class="col-md-4 text-left">
                             <h6><b>Tipo de reunión:</b></h6>
-                            <input type="text" class="form-control" id="tipoReunion" name="tipoReunion" value="Extraordinaria" readonly>
+                            <input type="text" class="form-control" id="tipoReunion" name="tipoReunion" value="{{ $acta->tipo_reunion }}" readonly>
                         </div>
                         <div class="col-md-4 text-left">
                             <h6><b>Fecha:</b></h6>
-                            <input type="text" class="form-control" id="fecha" name="fecha" value="10/06/2021" readonly>
+                            <input type="text" class="form-control" id="fecha" name="fecha" value="{{ $acta->fecha_reunion }}" readonly>
                         </div>
                     </div>
                     <hr>
@@ -32,11 +32,11 @@
                         
                         <div class="col-md-6 text-left">
                             <h6><b>Hora de inicio:</b></h6>
-                            <input type="text" class="form-control" id="horaInicio" name="horaInicio" value="11:00">
+                            <input type="text" class="form-control" id="horaInicio" name="horaInicio" value="{{ $acta->hora_inicio }}">
                         </div>
                         <div class="col-md-6 text-left">
                             <h6><b>Hora de término:</b></h6>
-                            <input type="text" class="form-control" id="horaTermino" name="horaTermino" value="12:00">
+                            <input type="text" class="form-control" id="horaTermino" name="horaTermino" value="{{ $acta->hora_termino }}">
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             <h5><b>Asistentes</b></h5>
                         </div>
                         <div class="col-md-4 text-right">
-                            <a href="" style="color: gray"> <i class="fas fa-plus-circle"></i> Agregar asistente</a>
+                            <a href="" style="color: gray" data-toggle="modal" data-target="#agregarAsistente"> <i class="fas fa-plus-circle"></i> Agregar asistente</a>
                         </div>
                     </div>
                 </div>
@@ -183,6 +183,8 @@
 
         </form>
     </div>
-    @include('actas.nuevaAccion')
+    {{-- Incluir modales --}}
+    @include('actas.modalNuevaAccion')
+    @include('actas.modalAgregarAsistente')
     
 @endsection

@@ -12,7 +12,7 @@
         </div>
         @if($usuarios->count())
             <div class="card-body">
-                <table class="table table-striped">
+                <table id="tablaUsuarios" class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -54,3 +54,4 @@
 </div>
 
 @endsection
+
