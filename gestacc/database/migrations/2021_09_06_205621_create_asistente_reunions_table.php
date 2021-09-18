@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAsistentesTable extends Migration
+class CreateAsistenteReunionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAsistentesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistentes', function (Blueprint $table) {
+        Schema::create('asistente_reunions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('ref_reunion');
+            $table->foreign('ref_reunion')->references('id')->on('reunions')->onDelete('cascade');
             $table->unsignedBigInteger('ref_usuario');
-            $table->unsignedBigInteger('ref_acta');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('ref_acta')->references('id')->on('actas')->onDelete('cascade');
-            $table->boolean('asiste');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateAsistentesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistentes');
+        Schema::dropIfExists('asistente_reunions');
     }
 }

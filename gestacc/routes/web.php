@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActaController;
+use App\Http\Controllers\ReunionController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -32,11 +33,9 @@ Route::get('/tareas', function(){
     return view('tareas.listaTareas');
 })->middleware('can:tareas')->name('tareas');
 
-Route::get('/reunion', function(){
-    return view('reuniones.nuevaReunion');
-})->middleware('can:reunion')->name('reunion');
-
-Route::resource('usuarios', UserController::class)->except('show')->middleware('can:usuarios')->names('usuarios');
+Route::resource('usuarios', UserController::class)->except('show', 'destroy')->middleware('can:usuarios')->names('usuarios');
+Route::get('/usuarios/{user}/enable', [UserController::class, 'enable' ])->middleware('can:usuarios')->name('usuarios.enable');
+Route::resource('reuniones', ReunionController::class)->only('create', 'store')->middleware('can:reunion')->names('reuniones');
 Route::resource('actas', ActaController::class)->only('create', 'store')->middleware('can:nuevaActa')->names('actas');
 
-Auth::routes(['reset' => false]);
+Auth::routes();

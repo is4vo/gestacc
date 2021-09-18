@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AsistenteActa extends Model
+class AsistenteReunion extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'ref_acta',
-        'ref_asistente',
+        'ref_reunion',
+        'ref_usuario',
     ];
 }

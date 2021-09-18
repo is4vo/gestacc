@@ -28,8 +28,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $usuario = User::find($id);
-        return view('usuarios.editar', compact('usuario'));
+        $user = User::find($id);
+        return view('usuarios.editar', compact('user'));
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
         $user = User::find($id);
         if($user->email != $request->email){
             $validate=$request->validate([
-                'email'=>'required|string|unique:user',
+                'email'=>'required|string|unique:users',
                 ]);
             }
 
@@ -59,17 +59,20 @@ class UserController extends Controller
         $user->save();
 
         
-        return  redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario modificado con éxito.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function enable($id)
     {
-        //
+        $user = User::find($id);
+        if($user->status == 1){
+            $user->status = 0;
+        }
+        else {
+            $user->status = 1;
+        }
+        $user->save();
+        return redirect()->route('usuarios.index')->with('success', 'Usuario modificado con éxito.');
     }
+
 }

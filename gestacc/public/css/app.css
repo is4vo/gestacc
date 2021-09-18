@@ -10223,7 +10223,6 @@ a.article:hover {
 .list-group{
   max-height: 250px;
   margin-bottom: 10px;
-  width: 500px;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
 }

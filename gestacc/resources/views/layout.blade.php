@@ -7,13 +7,17 @@
 
     <title>GESTACC - Sistema de gestión de actas</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script> 
-    <script src="https://kit.fontawesome.com/6dd0880117.js" crossorigin="anonymous"></script>
-
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/6dd0880117.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://csn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.js"></script>
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Roboto&display=swap" rel="stylesheet">
 
@@ -68,12 +72,12 @@
                 </li>
 
                 @can('reunion')
-                    <li class="{{ setActive('reunion') }}">
-                    <?php $rutas = array('reunion')?>
+                    <li class="{{ setActive('reuniones') }}">
+                    <?php $rutas = array('reuniones')?>
                         <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-handshake"></i> Reuniones</a>
                         <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="reuniones-submenu">
-                            <li class ="{{ setActive('reunion') }}">
-                                <a href="{{ route('reunion') }}">Crear reunión</a>
+                            <li class ="{{ setActive('reuniones') }}">
+                                <a href="{{ route('reuniones.create') }}">Crear reunión</a>
                             </li>
                         </ul>
                     </li>
@@ -122,20 +126,19 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <h2>@yield('titulo')</h2>
             </nav>
+            @include('alertas')
             @yield('content')
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-    <script>
+    
+{{--     <script>
         $(document).ready(function () {
             $('.list-unstyled').on('click', function () {
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
         });
-    </script>
+    </script> --}}
     
 </body>
 </html>

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AsistenteActa;
+use App\Models\AsistenteReunion;
 use Illuminate\Http\Request;
 
-class AsistenteActaController extends Controller
+class AsistenteReunionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class AsistenteActaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AsistenteActa  $asistenteActa
+     * @param  \App\Models\AsistenteReunion  $asistenteReunion
      * @return \Illuminate\Http\Response
      */
-    public function show(AsistenteActa $asistenteActa)
+    public function show(AsistenteReunion $asistenteReunion)
     {
         //
     }
@@ -52,10 +52,10 @@ class AsistenteActaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AsistenteActa  $asistenteActa
+     * @param  \App\Models\AsistenteReunion  $asistenteReunion
      * @return \Illuminate\Http\Response
      */
-    public function edit(AsistenteActa $asistenteActa)
+    public function edit(AsistenteReunion $asistenteReunion)
     {
         //
     }
@@ -64,10 +64,10 @@ class AsistenteActaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AsistenteActa  $asistenteActa
+     * @param  \App\Models\AsistenteReunion  $asistenteReunion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AsistenteActa $asistenteActa)
+    public function update(Request $request, AsistenteReunion $asistenteReunion)
     {
         //
     }
@@ -75,10 +75,10 @@ class AsistenteActaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AsistenteActa  $asistenteActa
+     * @param  \App\Models\AsistenteReunion  $asistenteReunion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AsistenteActa $asistenteActa)
+    public function destroy(AsistenteReunion $asistenteReunion)
     {
         //
     }

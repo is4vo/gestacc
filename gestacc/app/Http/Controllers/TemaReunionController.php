@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Acta;
-use App\Models\AsistenteReunion;
-use App\Models\Reunion;
 use App\Models\TemaReunion;
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class ActaController extends Controller
+class TemaReunionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,18 +24,7 @@ class ActaController extends Controller
      */
     public function create()
     {
-        $usuarios = User::all();
-        $id = 3;
-        $reunion = Reunion::find($id);
-        $asistentes_reunion = AsistenteReunion::where('ref_reunion', $id)->get();
-        $asistentes = array();
-        foreach ($asistentes_reunion as $a){
-            $id_u = $a->ref_usuario;
-            $u = User::find($id_u);
-            array_push($asistentes, $u);
-        }
-        $temas = TemaReunion::where('ref_reunion', $id)->get();
-        return view('actas.crear', compact('usuarios', 'reunion', 'asistentes', 'temas'));
+        //
     }
 
     /**
@@ -56,10 +41,10 @@ class ActaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Acta  $acta
+     * @param  \App\Models\TemaReunion  $temaReunion
      * @return \Illuminate\Http\Response
      */
-    public function show(Acta $acta)
+    public function show(TemaReunion $temaReunion)
     {
         //
     }
@@ -67,10 +52,10 @@ class ActaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Acta  $acta
+     * @param  \App\Models\TemaReunion  $temaReunion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Acta $acta)
+    public function edit(TemaReunion $temaReunion)
     {
         //
     }
@@ -79,10 +64,10 @@ class ActaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Acta  $acta
+     * @param  \App\Models\TemaReunion  $temaReunion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Acta $acta)
+    public function update(Request $request, TemaReunion $temaReunion)
     {
         //
     }
@@ -90,10 +75,10 @@ class ActaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Acta  $acta
+     * @param  \App\Models\TemaReunion  $temaReunion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Acta $acta)
+    public function destroy(TemaReunion $temaReunion)
     {
         //
     }

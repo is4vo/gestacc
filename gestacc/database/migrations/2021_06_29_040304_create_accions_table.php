@@ -13,7 +13,7 @@ class CreateAccionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('acciones', function (Blueprint $table) {
+        Schema::create('accions', function (Blueprint $table) {
             $table->id();
             $table->text('comentario');
             $table->string('tipo');
@@ -22,7 +22,7 @@ class CreateAccionsTable extends Migration
             $table->unsignedBigInteger('ref_tema');
             $table->unsignedBigInteger('ref_asistente');
             $table->foreign('ref_tema')->references('id')->on('temas')->onDelete('cascade');
-            $table->foreign('ref_asistente')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('ref_asistente')->references('id')->on('asistentes')->onDelete('cascade');
             $table->timestamps();
         });
     }

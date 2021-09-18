@@ -2,11 +2,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title w-100" id="modalProfileLabel">Agregar asistentes</h5>
+                <h5 class="modal-title w-100">Agregar asistentes</h5>
             </div>
-            <form method="" action="">
+            <form onsubmit="agregarAsistentes()">
                 @csrf
-
                 <div class="modal-body">
                     
                     <div class="card">
@@ -14,16 +13,17 @@
                         <div class="card-body">
 
                                 <div class="form-group row">
-                                    <ul class="list-group list-group-flush">
+                                    <ul class="list-group list-group-flush" style="width: 500px">
                                         @foreach($usuarios as $usuario)
-                                            <li class="list-group-item">
-                                                <input type="checkbox" id="asiste">   
-                                                <label value="{{$usuario->id}}">   {{$usuario->name}}</label>
-                                            </li>
+                                            @if(!in_array($usuario, $asistentes))
+                                                <li class="list-group-item">
+                                                    <input type="checkbox" id="asistentes[]" name="asistentes[]" value=" {{$usuario->id}} ">   
+                                                    <label>   {{$usuario->name}}</label>
+                                                </li>
+                                            @endif
                                         @endforeach
                                     </ul>
                                 </div>
-        
                         </div>
                     </div>
                 </div>
@@ -35,3 +35,12 @@
         </div>
     </div>
 </div>
+<p id="asistentes"></p>
+<script>
+    function agregarAsistentes() {
+        var nuevos_asistentes = document.getElementById("asistentes[]").value;
+        var asistentes = $asistentes;
+        asistentes.push(nuevos_asistentes);
+        document.cookie = "asistentes=asistentes";
+    }
+</script>

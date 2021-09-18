@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Asistente extends Model
+class TemaReunion extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'ref_usuario',
-        'ref_acta',
-        'asiste',
+        'titulo',
+        'ref_reunion',
     ];
 }
