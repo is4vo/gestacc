@@ -36,12 +36,12 @@
                                 <td>{{$reunion->estado}}</td>
                                 <td>
                                     @if($reunion->estado == "Pendiente")
-                                        <a href = "{{ route('actas.create', $reunion->id)}}" class="btn"> <i class="fas fa-file-alt"></i></a>
+                                        <a href = "{{ route('actas.create', $reunion->id) }}" class="btn"> <i class="fas fa-file-alt"></i></a>
                                     @endif
                                 </td>
                                 <td>
                                     @if($reunion->estado == "Pendiente")
-                                        <a href = "{{ route('reuniones.cancel', $reunion->id)}}" class="btn" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i style="color: red" class="fas fa-times-circle"></i></a>
+                                        <a href = "{{ route('reuniones.cancel', $reunion->id) }}" class="btn" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i style="color: red" class="fas fa-times-circle"></i></a>
                                     @endif
                                 </td>
                             </tr>

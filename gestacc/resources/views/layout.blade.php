@@ -55,9 +55,9 @@
                     <?php $rutas = array('actas.nuevaActa', 'actas.actasPendientes', 'actas.buscarActas')?>
                     <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-folder-open"></i></i> Actas</a>
                     <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="actas-submenu">
-                        @can('actasPendientes')
+                        @can('actas')
                             <li class ="{{ setActive('actas.actasPendientes') }}">
-                                <a href="{{ route('actas.actasPendientes') }}">Actas pendientes</a>
+                                <a href="{{ route('actas.index') }}">Actas pendientes</a>
                             </li>
                         @endcan
                         <li class ="{{ setActive('actas.buscarActas') }}">

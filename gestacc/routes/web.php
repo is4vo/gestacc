@@ -39,13 +39,10 @@ Route::resource('reuniones', ReunionController::class)->only('create', 'index', 
 Route::get('/reuniones/{user}/cancel', [ReunionController::class, 'cancel' ])->middleware('can:reunion')->name('reuniones.cancel');
 
 //Actas
-Route::resource('actas', ActaController::class)->only('store')->middleware('can:nuevaActa')->names('actas');
+Route::resource('actas', ActaController::class)->only('store', 'index', 'show')->middleware('can:actas')->names('actas');
 
-Route::get('/actas/create/{id}', [ActaController::class, 'create' ])->middleware('can:nuevaActa')->name('actas.create');
+Route::get('/actas/create/{id}', [ActaController::class, 'create' ])->middleware('can:actas')->name('actas.create');
 
-Route::get('/actas/pendientes', function(){
-    return view('actas.actasPendientes');
-})->middleware('can:actasPendientes')->name('actas.actasPendientes');
-Route::get('/actas/index', function(){
+Route::get('/actas/buscar', function(){
     return view('actas.buscarActas');
 })->name('actas.buscarActas');

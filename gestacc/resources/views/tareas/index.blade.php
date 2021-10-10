@@ -8,9 +8,6 @@
 
 <div>
     <div class="card">
-        <div class="card-header">
-            
-        </div>
         @if($tareas->count())
             <div class="card-body">
                 <table id="tabla_tareas" class="table table-striped">

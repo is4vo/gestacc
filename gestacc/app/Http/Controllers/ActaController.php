@@ -22,7 +22,8 @@ class ActaController extends Controller
      */
     public function index()
     {
-        //
+        $actas = Acta::where('cerrada', 0)->get();
+        return view('actas.index', compact('actas'));
     }
 
     /**
@@ -58,8 +59,8 @@ class ActaController extends Controller
             'numero_reunion' => ['required', 'numeric'],
             'tipo_reunion' => ['required', 'max:255'],
             'fecha_reunion' => ['required', 'date'],
-            'hora_inicio' => ['required', 'date_format:H:i:s'],
-            'hora_termino' => ['required','date_format:H:i:s', 'after:hora_inicio'],
+            'hora_inicio' => ['required'],
+            'hora_termino' => ['required', 'after:hora_inicio'],
             'asistentes' => ['required'],
             'participantes' => ['required'],
         ]); 
@@ -134,9 +135,14 @@ class ActaController extends Controller
      * @param  \App\Models\Acta  $acta
      * @return \Illuminate\Http\Response
      */
-    public function show(Acta $acta)
+    public function show($id)
     {
-        //
+        $acta = Acta::find($id);
+        $temas = Tema::where('ref_acta', $id)->get();
+        foreach($temas as $tema){
+            $tema['tareas'] = Accion::where('ref_tema', $tema->id)->where('estado', 'Pendiente')->get();
+        }
+        return view('actas.show', compact('acta', 'temas'));
     }
 
     /**
