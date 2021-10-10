@@ -31,7 +31,7 @@
                                 <td>{{$usuario->email}}</td>
                                 <td>{{$usuario->getRoleNames()[0]}}</td>
                                 <td style="width: 50px">
-                                    <a href = "{{ route('usuarios.edit', $usuario->id)}}" class="btn"> <i class="fas fa-pencil-alt"></i></a>
+                                    <a href = "{{ route('usuarios.edit', $usuario->id)}}" class="btn"> <i class="fas fa-edit"></i></a>
                                 </td>
                                 <td style="width: 50px">
                                     @if($usuario->status == 1)
@@ -57,7 +57,9 @@
 </div>
 <script>
     $(document).ready( function () {
-        $('#tabla_usuarios').DataTable();
+        $('#tabla_usuarios').DataTable({
+            "info":     false
+        });
     } );
 </script>
 @endsection

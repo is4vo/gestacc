@@ -15,11 +15,12 @@ class CreateReunionsTable extends Migration
     {
         Schema::create('reunions', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_reunion')->unique();
+            $table->unsignedBigInteger('numero_reunion');
             $table->string('tipo_reunion');
             $table->date('fecha_reunion');
             $table->time('hora_inicio');
             $table->time('hora_termino');
+            $table->string('estado')->default('Pendiente');
             $table->unsignedBigInteger('ref_usuario');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -16,7 +16,8 @@ class CreateTemasTable extends Migration
         Schema::create('temas', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->text('comentarios');
+            $table->text('comentarios')->nullable();
+            $table->string('estado')->default('Pendiente');
             $table->unsignedBigInteger('ref_acta');
             $table->foreign('ref_acta')->references('id')->on('actas')->onDelete('cascade');
             $table->timestamps();

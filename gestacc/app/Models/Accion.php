@@ -8,14 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Accion extends Model
 {
     use HasFactory;
-    protected $table = 'acciones';
+    protected $table = 'accions';
 
     protected $fillable = [
+        'titulo',
         'comentario',
         'tipo',
         'vencimiento',
         'estado',
         'ref_tema',
-        'ref_asistente',
+        'ref_usuario',
     ];
 }

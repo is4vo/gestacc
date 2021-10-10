@@ -15,14 +15,15 @@ class CreateAccionsTable extends Migration
     {
         Schema::create('accions', function (Blueprint $table) {
             $table->id();
-            $table->text('comentario');
+            $table->string('titulo');
+            $table->text('comentario')->nullable();
             $table->string('tipo');
-            $table->date('vencimiento');
-            $table->string('estado');
+            $table->date('vencimiento')->nullable();
+            $table->string('estado')->nullable();
             $table->unsignedBigInteger('ref_tema');
-            $table->unsignedBigInteger('ref_asistente');
+            $table->unsignedBigInteger('ref_usuario')->nullable();
             $table->foreign('ref_tema')->references('id')->on('temas')->onDelete('cascade');
-            $table->foreign('ref_asistente')->references('id')->on('asistentes')->onDelete('cascade');
+            $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

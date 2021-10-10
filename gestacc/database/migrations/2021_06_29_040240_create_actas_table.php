@@ -15,12 +15,12 @@ class CreateActasTable extends Migration
     {
         Schema::create('actas', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_reunion')->unique();
+            $table->string('numero_reunion');
             $table->string('tipo_reunion');
             $table->string('fecha_reunion');
             $table->string('hora_inicio');
             $table->string('hora_termino');
-            $table->boolean('cerrada');
+            $table->boolean('cerrada')->default(0);
             $table->unsignedBigInteger('ref_usuario');
             $table->unsignedBigInteger('ref_reunion');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');

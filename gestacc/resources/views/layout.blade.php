@@ -55,11 +55,6 @@
                     <?php $rutas = array('actas.nuevaActa', 'actas.actasPendientes', 'actas.buscarActas')?>
                     <a href="#actas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-folder-open"></i></i> Actas</a>
                     <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="actas-submenu">
-                        @can('nuevaActa')
-                            <li class ="{{ setActive('actas.nuevaActa') }}">
-                                <a href="{{ route('actas.create') }}">Crear actas</a>
-                            </li>
-                        @endcan
                         @can('actasPendientes')
                             <li class ="{{ setActive('actas.actasPendientes') }}">
                                 <a href="{{ route('actas.actasPendientes') }}">Actas pendientes</a>
@@ -76,7 +71,10 @@
                     <?php $rutas = array('reuniones')?>
                         <a href="#reuniones-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-handshake"></i> Reuniones</a>
                         <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="reuniones-submenu">
-                            <li class ="{{ setActive('reuniones') }}">
+                            <li class ="{{ setActive('reuniones.index') }}">
+                                <a href="{{ route('reuniones.index') }}">Reuniones</a>
+                            </li>
+                            <li class ="{{ setActive('reuniones.create') }}">
                                 <a href="{{ route('reuniones.create') }}">Crear reunión</a>
                             </li>
                         </ul>
@@ -85,14 +83,7 @@
 
                 @can('tareas')
                     <li class="{{ setActive('tareas') }}">
-                        <?php $rutas = array('tareas')?>
-                        <a href="#tareas-submenu" data-toggle="collapse" aria-expanded="{{setActiveGroup($rutas)}}" class="dropdown-toggle"> <i class="fas fa-tasks"></i> Tareas</a>
-                        <ul class="list-unstyled {{setActiveGroupCollapse($rutas)}}" id="tareas-submenu">
-                            <li class ="{{ setActive('tareas') }}">
-                                <a href="{{ route('tareas') }}">Ver mis tareas</a>
-                                
-                            </li>
-                        </ul>
+                        <a href="{{ route('tareas.index') }}"><i class="fas fa-tasks"></i> Tareas</a>
                     </li>
                 @endcan
 
