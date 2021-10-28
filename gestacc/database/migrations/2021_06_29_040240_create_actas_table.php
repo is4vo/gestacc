@@ -17,14 +17,15 @@ class CreateActasTable extends Migration
             $table->id();
             $table->string('numero_reunion');
             $table->string('tipo_reunion');
-            $table->string('fecha_reunion');
-            $table->string('hora_inicio');
-            $table->string('hora_termino');
-            $table->boolean('cerrada')->default(0);
+            $table->date('fecha_reunion');
+            $table->time('hora_inicio');
+            $table->time('hora_termino');
+            $table->string('estado')->default('Pendiente');
             $table->unsignedBigInteger('ref_usuario');
             $table->unsignedBigInteger('ref_reunion');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ref_reunion')->references('id')->on('reunions')->onDelete('cascade');
+            $table->unique(['numero_reunion', 'tipo_reunion']);
             $table->timestamps();
         });
     }

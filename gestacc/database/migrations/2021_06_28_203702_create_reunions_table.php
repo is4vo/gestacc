@@ -23,6 +23,7 @@ class CreateReunionsTable extends Migration
             $table->string('estado')->default('Pendiente');
             $table->unsignedBigInteger('ref_usuario');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(['numero_reunion', 'tipo_reunion']);
             $table->timestamps();
         });
     }

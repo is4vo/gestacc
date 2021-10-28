@@ -18,7 +18,7 @@
                     <div class="col-md-4 text-left">
                         <h6><b>Tipo de reunión:</b></h6>
                         <select for="tipo_reunion" id="tipo_reunion" name="tipo_reunion" class="form-control" required value="{{ old('tipo_reunion')}}">
-                            <option value="Semanal">Semanal</option>
+                            <option value="Regular">Regular</option>
                             <option value="Extraordinaria">Extraordinaria</option>
                             <option value="Consejo de Escuela">Consejo de Escuela</option>
                         </select>
@@ -30,7 +30,7 @@
 
                     <div class="col-md-4 text-left">
                         <h6><b>Número de reunión:</b></h6>
-                        <input type="number" class="form-control" id="numero_reunion" name="numero_reunion" placeholder="000" required value="{{$numero_reuniones['semanal']}}">
+                        <input type="number" class="form-control" id="numero_reunion" name="numero_reunion" placeholder="000" required value="{{$numero_reuniones['regular']}}">
 
                         @error('numero_reunion')
                             <p style="color: red; font-size:11px">{{ $message }}</p>
@@ -128,8 +128,9 @@
         <br>
         <div class="form-group row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Guardar</button>
-                <button class="btn btn-secondary" href= "{{ route('reuniones.index') }}" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-primary" type="submit" onclick="return confirm('¿Está seguro que desea guardar?')"><i class="fas fa-save"></i> Guardar</button>
+                
+                <button class="btn btn-secondary" href="{{url()->previous()}}" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i class="fas fa-times"></i> Cancelar</button>
             </div>
         </div>
 
@@ -157,8 +158,8 @@
     // Numero de reunion
     $("#tipo_reunion").change(function(){
         var selected = $("#tipo_reunion :selected").val();
-        if (selected == "Semanal"){
-            $("#numero_reunion").val("{{$numero_reuniones['semanal']}}");
+        if (selected == "Regular"){
+            $("#numero_reunion").val("{{$numero_reuniones['regular']}}");
         }
         else if (selected == "Extraordinaria"){
             $("#numero_reunion").val("{{$numero_reuniones['extraordinaria']}}");

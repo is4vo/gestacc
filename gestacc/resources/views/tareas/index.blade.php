@@ -13,8 +13,8 @@
                 <table id="tabla_tareas" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Titulo</th>
                             <th>Fecha vencimiento</th>
+                            <th>Titulo</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -22,8 +22,8 @@
                     <tbody>
                         @foreach($tareas as $tarea)
                             <tr>
-                                <td>{{ $tarea->titulo }}</td>
                                 <td>{{ $tarea->vencimiento }}</td>
+                                <td>{{ $tarea->titulo }}</td>
                                 <td>{{ $tarea->estado }}</td>
                                 <td><a href = "{{ route('tareas.show', $tarea->id)}}" class="btn"> <i class="fas fa-info-circle"></i></a></td>
                             </tr>

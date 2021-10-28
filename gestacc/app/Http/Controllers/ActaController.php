@@ -10,8 +10,10 @@ use App\Models\Reunion;
 use App\Models\Tema;
 use App\Models\TemaReunion;
 use App\Models\User;
+use App\Notifications\NuevaTarea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ActaController extends Controller
 {
@@ -20,10 +22,11 @@ class ActaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function pendientes()
     {
-        $actas = Acta::where('cerrada', 0)->get();
-        return view('actas.index', compact('actas'));
+        $actas = Acta::where('estado', 'Pendiente')->get();
+        dd($actas);
+        return view('actas.pendientes', compact('actas'));
     }
 
     /**
@@ -74,33 +77,39 @@ class ActaController extends Controller
 
         $temas = TemaReunion::where('ref_reunion', $reunion->id)->get();
         foreach ($temas as $tema){
-            $tema_new = Tema::create(
-                ['titulo' => $tema->titulo,
-                'comentarios' => $request->comentariosTema[$tema->id],
-                'ref_acta' => $acta->id]
-            );
             $acciones = $request->input("accion" .$tema->id);
-            $tipos = $request->input("tipo" .$tema->id);
-            $vencimientos = $request->input("fechaVencimiento" .$tema->id);
-            $encargados = $request->input("encargado" .$tema->id);
-            if(!is_null($acciones)){
-                for ($i=0; $i < count($acciones); $i++) { 
-                    if($tipos[$i]=='Ejecución'){
-                        Accion::create(
-                            ['titulo' => $acciones[$i],
-                            'tipo' => $tipos[$i],
-                            'vencimiento' => $vencimientos[$i],
-                            'estado' => 'Pendiente',
-                            'ref_tema' => $tema_new->id,
-                            'ref_usuario' => $encargados[$i]
-                            ]);
-                    }
-                    else{
-                        Accion::create(
-                            ['titulo' => $acciones[$i],
-                            'tipo' => $tipos[$i],
-                            'ref_tema' => $tema_new->id,
-                            ]);
+            if(!is_null( $request->comentariosTema[$tema->id]) || !is_null($acciones)){
+                $tema_new = Tema::create(
+                    ['titulo' => $tema->titulo,
+                    'comentarios' => $request->comentariosTema[$tema->id],
+                    'ref_acta' => $acta->id]
+                );
+                
+                $tipos = $request->input("tipo" .$tema->id);
+                $vencimientos = $request->input("fechaVencimiento" .$tema->id);
+                $encargados = $request->input("encargado" .$tema->id);
+                
+                if(!is_null($acciones)){
+                    for ($i=0; $i < count($acciones); $i++) { 
+                        if($tipos[$i]=='Ejecución'){
+                            $tarea = Accion::create(
+                                ['titulo' => $acciones[$i],
+                                'tipo' => $tipos[$i],
+                                'vencimiento' => $vencimientos[$i],
+                                'estado' => 'Pendiente',
+                                'ref_tema' => $tema_new->id,
+                                'ref_usuario' => $encargados[$i]
+                                ]);
+                                $user = User::find($encargados[$i]);
+                                $user->notify(new NuevaTarea($tarea));
+                        }
+                        else{
+                            Accion::create(
+                                ['titulo' => $acciones[$i],
+                                'tipo' => $tipos[$i],
+                                'ref_tema' => $tema_new->id,
+                                ]);
+                        }
                     }
                 }
             }
@@ -142,7 +151,13 @@ class ActaController extends Controller
         foreach($temas as $tema){
             $tema['tareas'] = Accion::where('ref_tema', $tema->id)->where('estado', 'Pendiente')->get();
         }
-        return view('actas.show', compact('acta', 'temas'));
+        //return view('actas.show', compact('acta', 'temas'));
+    }
+
+    public function index()
+    {
+        $actas = Acta::all();
+        return view('actas.index', compact('actas'));
     }
 
     /**
@@ -168,14 +183,36 @@ class ActaController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Acta  $acta
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Acta $acta)
-    {
-        //
+    // Genera PDF
+    public function createPDF($id) {
+        $acta = Acta::find($id);
+        $temas = Tema::where('ref_acta', $id)->get();
+        $ver = 0;
+        $asistentes = [];
+        if(Auth::check()){
+            $asistentes_aux = Asistente::where('ref_acta', $id)->where('asiste', 1)->pluck('ref_usuario');
+            foreach ($asistentes_aux as $a){
+                $user = User::find($a);
+                array_push($asistentes, $user);
+            }
+            if (in_array(Auth::user(), $asistentes) || Auth::user()->hasPermissionTo('actas')){
+                $ver = 1;
+                foreach ($temas as $tema){
+                    $tema['acciones'] = Accion::where('ref_tema', $tema->id)->get();
+                    foreach($tema['acciones'] as $accion){
+                        $accion['usuario'] = User::find($accion->ref_usuario);
+                    }
+                }
+            }
+        }
+        $data = [
+            'acta' => $acta,
+            'asistentes' => $asistentes,
+            'temas' => $temas,
+            'ver' => $ver
+        ];
+        $pdf = PDF::loadView('actas.download', $data)->setPaper('letter');
+        return $pdf->stream('acta.pdf');
+        //return view('actas.download', compact('acta', 'asistentes', 'temas', 'ver'));
     }
 }

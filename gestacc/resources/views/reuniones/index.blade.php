@@ -15,9 +15,9 @@
                 <table id="tabla_reuniones" class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Fecha</th>
                             <th>Tipo reunión</th>
                             <th>Número reunión</th>
-                            <th>Fecha</th>
                             <th>Hora inicio</th>
                             <th>Hora término</th>
                             <th>Estado</th>
@@ -28,9 +28,9 @@
                     <tbody>
                         @foreach($reuniones as $reunion)
                             <tr>
+                                <td>{{$reunion->fecha_reunion}}</td>
                                 <td>{{$reunion->tipo_reunion}}</td>
                                 <td>{{$reunion->numero_reunion}}</td>
-                                <td>{{$reunion->fecha_reunion}}</td>
                                 <td>{{$reunion->hora_inicio}}</td>
                                 <td>{{$reunion->hora_termino}}</td>
                                 <td>{{$reunion->estado}}</td>

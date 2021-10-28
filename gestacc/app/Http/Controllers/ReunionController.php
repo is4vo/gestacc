@@ -6,6 +6,7 @@ use App\Models\AsistenteReunion;
 use App\Models\Reunion;
 use App\Models\TemaReunion;
 use App\Models\User;
+use App\Notifications\NuevaReunion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +21,7 @@ class ReunionController extends Controller
     public function index()
     {
         $reuniones = Reunion::all();
+
         return view('reuniones.index', compact('reuniones'));
     }
 
@@ -31,16 +33,16 @@ class ReunionController extends Controller
     public function create()
     {
         $usuarios = User::where('status', 1)->get();
-        $semanal = DB::table('reunions')->select('numero_reunion')->where('tipo_reunion', 'Semanal')->orderBy('id','DESC')->first();
+        $regular = DB::table('reunions')->select('numero_reunion')->where('tipo_reunion', 'Regular')->orderBy('id','DESC')->first();
         $extraordinaria = DB::table('reunions')->select('numero_reunion')->where('tipo_reunion', 'Extraordinaria')->orderBy('id','DESC')->first();
         $consejo = DB::table('reunions')->select('numero_reunion')->where('tipo_reunion', 'Consejo de Escuela')->orderBy('id','DESC')->first();
 
         $numero_reuniones = array(
-            'semanal' => (is_null($semanal) ? 0 : $semanal->numero_reunion),
+            'regular' => (is_null($regular) ? 0 : $regular->numero_reunion),
             'extraordinaria' => (is_null($extraordinaria) ? 0 : $extraordinaria->numero_reunion),
             'consejo' => (is_null($consejo) ? 0 : $consejo->numero_reunion),
         );
-        $numero_reuniones['semanal']++;
+        $numero_reuniones['regular']++;
         $numero_reuniones['extraordinaria']++;
         $numero_reuniones['consejo']++;
 
@@ -75,6 +77,8 @@ class ReunionController extends Controller
                 ['ref_reunion' => $reunion->id,
                 'ref_usuario' => $asistente]
             );
+            $user = User::find($asistente);
+            $user->notify(new NuevaReunion($reunion));
         };
         foreach ($temas as $tema){
             if($tema!='Varios'){
@@ -88,6 +92,7 @@ class ReunionController extends Controller
             ['titulo' => 'Varios',
             'ref_reunion' => $reunion->id]
         );
+        
         return redirect()->route('reuniones.index')->with('success', 'Reunión creada con éxito.');
     }
 

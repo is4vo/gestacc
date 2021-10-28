@@ -18,21 +18,14 @@ class AccionController extends Controller
      */
     public function index()
     {
-        $rol = Auth::user()->roles->pluck('name')[0];
-        if ($rol == 'Invitado'){
-            $tareas = Accion::where('ref_usuario', Auth::id())
-            ->where('tipo', 'Ejecución')
-            ->where('estado', 'Pendiente')
-            ->get();
-        }
-        else{
-            $tareas = Accion::where('tipo', 'Ejecución')
-            ->where('estado', 'Pendiente')
-            ->get();
-        }
+
+        $tareas = Accion::where('ref_usuario', Auth::id())
+        ->where('tipo', 'Ejecución')
+        ->where('estado', 'Pendiente')
+        ->get();
+        
         return view('tareas.index', compact('tareas'));
     }
-
 
     /**
      * Display the specified resource.
