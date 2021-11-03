@@ -1,26 +1,20 @@
 @extends('layout')
 
 @section('titulo')
-    Buscar actas
+    Resultados
 @endsection
 
 @section('content')
 
 <div>
     <div class="card">
-        @if($actas->count())
+        @if($resultados->count())
             <div class="card-header text-right">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalFiltrar">
-                    <i class="fas fa-filter"></i>
-                </button>
+                <a href="{{ route('actas.index') }}" style="color: gray">
+                    Limpiar
+                </a>
             </div>
             <div class="card-body">
-                @error('fecha_inicial')
-                    <p style="color: red; font-size:11px">{{ $message }}</p>
-                @enderror
-                @error('fecha_final')
-                    <p style="color: red; font-size:11px">{{ $message }}</p>
-                @enderror
                 <table id="tabla_actas" class="table table-striped">
                     <thead>
                         <tr>
@@ -32,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($actas as $acta)
+                        @foreach($resultados as $acta)
                             <tr>
                                 <td>{{ $acta->fecha_reunion }}</td>
                                 <td>{{ $acta->tipo_reunion }}</td>
@@ -52,7 +46,6 @@
 
     </div>
 </div>
-@include('actas.modalBuscar')
 
 <script>
     $(document).ready( function () {

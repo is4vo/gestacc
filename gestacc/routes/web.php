@@ -43,8 +43,9 @@ Route::resource('actas', ActaController::class)->only('update', 'store', 'show')
 
 Route::get('/actas', [ActaController::class, 'index'])->name('actas.index');
 
-Route::get('/actas/create/{id}', [ActaController::class, 'create' ])->middleware('can:actas')->name('actas.create');
+Route::get('/actas/create/{id}', [ActaController::class, 'create'])->middleware('can:actas')->name('actas.create');
 
-Route::get('/actas/pendientes', [ActaController::class, 'pendientes'])->middleware('can:actas')->name('actas.pendientes');
+Route::get('/actas-pendientes', [ActaController::class, 'pendientes'])->middleware('can:actas')->name('actas.pendientes');
 
 Route::get('/actas/{id}/pdf', [ActaController::class, 'createPDF'])->name('actas.download');
+Route::post('/actas/buscar', [ActaController::class, 'buscar'])->name('actas.buscar');

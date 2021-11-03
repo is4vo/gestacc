@@ -117,8 +117,16 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <h2>@yield('titulo')</h2>
             </nav>
+            <div class="whole-page-overlay" id="whole_page_loader">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-light m-5" role="status">
+                        <span class="sr-only">Cargando...</span>
+                    </div>
+                </div>
+            </div>
             @include('alertas')
             @yield('content')
+
         </div>
     </div>
     

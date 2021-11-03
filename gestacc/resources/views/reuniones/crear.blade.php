@@ -82,6 +82,7 @@
                         <li class="list-group-item">
                             <input type="checkbox" name="asistentes[]" value=" {{$usuario->id}} ">   
                             <label>   {{$usuario->name}}</label>
+                            <label style="color: gray; font-size: 12px;" style=""> - {{$usuario->getRoleNames()[0]}}</label>
                         </li>
                     @endforeach
                 </ul>
@@ -128,9 +129,9 @@
         <br>
         <div class="form-group row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-primary" type="submit" onclick="return confirm('¿Está seguro que desea guardar?')"><i class="fas fa-save"></i> Guardar</button>
+                <button class="btn btn-primary" id="submit" type="submit"><i class="fas fa-save"></i> Guardar</button>
                 
-                <button class="btn btn-secondary" href="{{url()->previous()}}" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-secondary" id="cancelar"> <i class="fas fa-times"></i> Cancelar</button>
             </div>
         </div>
 
@@ -152,7 +153,7 @@
         $(document).on('click', '.btn_remove', function(){  
             var button_id = $(this).attr("id");   
             $('#row'+button_id+'').remove();  
-        });  
+        });
     });
 
     // Numero de reunion
@@ -166,6 +167,18 @@
         }
         else {
             $("#numero_reunion").val("{{$numero_reuniones['consejo']}}");
+        }
+    });
+
+    $("#cancelar").click(function(){
+        if(confirm('¿Está seguro que desea cancelar?')){
+            window.location.href='{{route('reuniones.index')}}';
+        }
+    });
+
+    $("#submit").click(function(){
+        if(confirm('¿Está seguro que desea guardar?')){
+            $('#whole_page_loader').show();
         }
     });
 </script>

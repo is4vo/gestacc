@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Notifications\NuevoUsuario;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -14,11 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $randString = Str::random(10);
         User::create([
             'name' => 'Isavo Castro',
             'email' => 'isavocastro@gmail.com',
-            'password' => bcrypt('12345678')
-        ])->assignRole('Admin');
+            'password' => Hash::make($randString)
+        ])->assignRole('Admin')->notify(new NuevoUsuario($randString));
 
         User::create([
             'name' => 'Jose Fuentes',

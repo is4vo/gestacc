@@ -17,6 +17,7 @@ class Accion extends Model
         'vencimiento',
         'estado',
         'ref_tema',
+        'ref_acta',
         'ref_usuario',
     ];
 }

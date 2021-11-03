@@ -10234,3 +10234,22 @@ a.article:hover {
 .modal-dialog-slideout .modal-content{border: 0;}
 .modal-dialog-slideout .modal-header, .modal-dialog-slideout .modal-footer {height: 69px; display: block;} 
 .modal-dialog-slideout .modal-header h5 {float:left;}
+
+.whole-page-overlay{
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  background: rgba(0,0,0,0.6);
+  width: 100%;
+  height: 100% !important;
+  z-index: 1050;
+  display: none;
+}
+.whole-page-overlay .center-loader{
+  top: 50%;
+  left: 52%;
+  position: absolute;
+  color: white;
+}

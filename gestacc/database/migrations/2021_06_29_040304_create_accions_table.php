@@ -21,8 +21,10 @@ class CreateAccionsTable extends Migration
             $table->date('vencimiento')->nullable();
             $table->string('estado')->nullable();
             $table->unsignedBigInteger('ref_tema');
+            $table->unsignedBigInteger('ref_acta');
             $table->unsignedBigInteger('ref_usuario')->nullable();
             $table->foreign('ref_tema')->references('id')->on('temas')->onDelete('cascade');
+            $table->foreign('ref_acta')->references('id')->on('actas')->onDelete('cascade');
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

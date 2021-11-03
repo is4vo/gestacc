@@ -25,7 +25,6 @@ class ActaController extends Controller
     public function pendientes()
     {
         $actas = Acta::where('estado', 'Pendiente')->get();
-        dd($actas);
         return view('actas.pendientes', compact('actas'));
     }
 
@@ -98,6 +97,7 @@ class ActaController extends Controller
                                 'vencimiento' => $vencimientos[$i],
                                 'estado' => 'Pendiente',
                                 'ref_tema' => $tema_new->id,
+                                'ref_acta' => $acta->id,
                                 'ref_usuario' => $encargados[$i]
                                 ]);
                                 $user = User::find($encargados[$i]);
@@ -108,6 +108,7 @@ class ActaController extends Controller
                                 ['titulo' => $acciones[$i],
                                 'tipo' => $tipos[$i],
                                 'ref_tema' => $tema_new->id,
+                                'ref_acta' => $acta->id,
                                 ]);
                         }
                     }
@@ -149,9 +150,9 @@ class ActaController extends Controller
         $acta = Acta::find($id);
         $temas = Tema::where('ref_acta', $id)->get();
         foreach($temas as $tema){
-            $tema['tareas'] = Accion::where('ref_tema', $tema->id)->where('estado', 'Pendiente')->get();
+            $tema['tareas'] = Accion::where('ref_tema', $tema->id)->get();
         }
-        //return view('actas.show', compact('acta', 'temas'));
+        return view('actas.show', compact('acta', 'temas'));
     }
 
     public function index()
@@ -181,6 +182,75 @@ class ActaController extends Controller
     public function update(Request $request, Acta $acta)
     {
         //
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Acta  $acta
+     * @return \Illuminate\Http\Response
+     */
+    public function buscar(Request $request)
+    {
+        $request->validate([
+            'fecha_inicial' => ['nullable', 'date', 'required_with:fecha_final' ],
+            'fecha_final' => ['nullable', 'date', 'after:fecha_inicial', 'required_with:fecha_inicial']
+        ]);
+        $actas = [];
+        if($request->input('cerradas')=='on'){
+            $actas = Acta::where('estado', 'Cerrada')->pluck('id')->toArray();
+        }
+        else{
+            $actas = Acta::all()->pluck('id')->toArray();
+        }
+        if($request->fecha_inicial!=null && $request->fecha_final!=null){
+            $actas_aux = Acta::where('fecha_reunion', '>=', $request->fecha_inicial)->where('fecha_reunion', '<=', $request->fecha_final)->pluck('id')->toArray();
+            $actas = array_intersect($actas, $actas_aux);
+        }
+        if($request->input('participado') == 'on'){
+            $actas_aux = Asistente::where('ref_usuario', Auth::id())->where('asiste', 1)->pluck('ref_acta')->toArray();
+            $actas = array_intersect($actas, $actas_aux);
+        }
+        $actas_tipos = [];
+        if($request->input('Regular') == 'on'){
+            $actas_tipos_reg = Acta::where('tipo_reunion', 'Regular')->pluck('id')->toArray();
+            $actas_tipos = array_merge($actas_tipos, $actas_tipos_reg);
+        }
+        if($request->input('Extraordinaria') == 'on'){
+            $actas_tipos_ex = Acta::where('tipo_reunion', 'Extraordinaria')->pluck('id')->toArray();
+            $actas_tipos = array_merge($actas_tipos, $actas_tipos_ex);
+        }
+        if($request->input('Consejo de Escuela') == 'on'){
+            $actas_tipos_con = Acta::where('tipo_reunion', 'Consejo de Escuela')->pluck('id')->toArray();
+            $actas_tipos = array_merge($actas_tipos, $actas_tipos_con);
+        }
+        if(!empty($actas_tipos)){
+            $actas = array_intersect($actas, $actas_tipos);
+        }
+        if($request->keywords!=null){
+            $actas_keywords = [];
+            if($request->input('temas') == 'on'){
+                $actas_temas = Tema::where('titulo', 'like', '%'.$request->keywords.'%')->pluck('ref_acta')->toArray();
+                $actas_keywords = array_unique(array_merge($actas_keywords, $actas_temas));
+            }
+            if($request->input('comentarios') == 'on'){
+                $actas_comentarios = Tema::where('comentarios', 'like', '%'.$request->keywords.'%')->pluck('ref_acta')->toArray();
+                $actas_keywords = array_unique(array_merge($actas_keywords, $actas_comentarios));
+            }
+            if($request->input('acuerdos') == 'on'){
+                $actas_acuerdos = Accion::where('titulo', 'like', '%'.$request->keywords.'%')->where('tipo', 'Acuerdo')->pluck('ref_acta')->toArray();
+                $actas_keywords = array_unique(array_merge($actas_keywords, $actas_acuerdos));
+            }
+            if($request->input('tareas') == 'on'){
+                $actas_tareas = Accion::where('titulo', 'like', '%'.$request->keywords.'%')->where('tipo', 'Ejecucion')->pluck('ref_acta')->toArray();
+                $actas_keywords = array_unique(array_merge($actas_keywords, $actas_tareas));
+            }
+            if(!empty($actas_keywords)){
+                $actas = array_intersect($actas, $actas_keywords);
+            }
+        }
+        $resultados = Acta::find($actas);
+        return view('actas.resultados', compact('resultados'));
     }
 
     // Genera PDF
@@ -215,4 +285,6 @@ class ActaController extends Controller
         return $pdf->stream('acta.pdf');
         //return view('actas.download', compact('acta', 'asistentes', 'temas', 'ver'));
     }
+
+
 }

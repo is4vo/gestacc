@@ -1,12 +1,20 @@
 @extends('layout')
 
 @section('titulo')
-    Inicio
+    Inicio 
+    
 @endsection
 
 @section('content')
 
 <div>
+    @if(count($alertas)>0)
+    <div>
+        <button data-toggle="modal" data-target="#modalAlertas" type="button" class="btn btn-primary" style="position: fixed; top: 57px; right: 50px;">
+            Alertas <span class="badge badge-light">@php echo count($alertas) @endphp</span>
+        </button>
+    </div>
+    @endif
     <div class="form-group row">
         <div class="col-md-6 text-left">
             <div class="card">
@@ -77,7 +85,6 @@
                         @endcan
                     </div>
                 </div>
-                <a href="" style="color: red" data-toggle="modal" data-target="#modalAlertas"> <i class="fas fa-plus-circle"></i> Alertas **** </a>
             </div>
         </div>
     </div>
@@ -107,7 +114,8 @@
 
 <script>
     $(document).ready(function(){
-        $("#modalAlertas").modal('show');
+        
     });
+    $("#modalAlertas").modal('show');
 </script>
 @endsection

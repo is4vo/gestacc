@@ -37,13 +37,11 @@ class HomeController extends Controller
                     array_push($alertas, "Reunión ". $rnr->tipo_reunion. " ". $rnr->numero_reunion. " no realizada. Cancelar o crear acta de reunión.");
                 }
             }
-            
             return view('home', compact('reuniones', 'tareas', 'alertas'));
+            
         }
         else{
             return view('guest');
         }
-
-        
     }
 }

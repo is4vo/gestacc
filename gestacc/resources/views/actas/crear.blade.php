@@ -85,7 +85,10 @@
                                 <tbody>
                                     @foreach($asistentes as $asistente)
                                         <tr>
-                                            <td><input type="hidden" name="asistentes[]" value="{{$asistente->id}}"><label>{{$asistente->name}}</label></td>
+                                            <td>
+                                                <input type="hidden" name="asistentes[]" value="{{$asistente->id}}">
+                                                <label>{{$asistente->name}}</label>
+                                            </td>
                                             <td><input type="checkbox" name="participantes[]" value="{{$asistente->id}}"></td>
                                         </tr>
                                     @endforeach
@@ -135,11 +138,10 @@
             <br>
             <div class="form-group row">
                 <div class="col-md-12 text-right">
-                    <button class="btn btn-primary" type="submit" onclick="return confirm('¿Está seguro que desea guardar?')"><i class="fas fa-save"></i> Guardar</button>
-                    <button class="btn btn-secondary" onclick="return confirm('¿Está seguro que desea cancelar?')"> <i class="fas fa-times"></i> Cancelar</button>
+                    <button class="btn btn-primary" type="submit" id="submit"><i class="fas fa-save"></i> Guardar</button>
+                    <button class="btn btn-secondary" id="cancelar"> <i class="fas fa-times"></i> Cancelar</button>
                 </div>
             </div>
-
         </form>
     </div>
     @include('actas.modalAgregarAsistente')
@@ -156,6 +158,18 @@
                 $(this).closest("tr").remove();
             });
         });
+
+    $("#cancelar").click(function(){
+        if(confirm('¿Está seguro que desea cancelar?')){
+            window.location.href='{{route('reuniones.index')}}';
+        }
+    });
+
+    $("#submit").click(function(){
+        if(confirm('¿Está seguro que desea guardar?')){
+            $('#whole_page_loader').show();
+        }
+    });
     </script>
 
 @endsection
