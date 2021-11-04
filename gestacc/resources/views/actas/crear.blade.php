@@ -136,6 +136,34 @@
                 </div>
             </div>
             <br>
+            @if($reunion->tipo_reunion == 'Regular')
+                @if($pendientes->count())
+                    <div class="card">
+                        <div class="card-header">
+                            <h5><b>Actas pendientes de aprobación</b></h5>
+                        </div>
+                    
+                        <div class="card-body">
+                            @foreach($pendientes as $acta)
+                                <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
+                                    <h6><b>Acta Reunión {{ $acta->tipo_reunion }} - {{$acta->numero_reunion}}, Fecha: {{$acta->fecha_reunion}} </b></h6>
+                                </div>
+                                <div class="form-group row" style="margin-left: 10px; margin-right: 10px; color: grey;">
+                                    Falta por aprobar: 
+                                    <ul>
+                                        @foreach($acta['miembros_faltantes'] as $user)
+                                            <li> {{$user->name}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <hr>
+
+                            @endforeach
+                        </div>
+                    </div>
+                    <br>
+                @endif
+            @endif
             <div class="form-group row">
                 <div class="col-md-12 text-right">
                     <button class="btn btn-primary" type="submit" id="submit"><i class="fas fa-save"></i> Guardar</button>

@@ -17,7 +17,7 @@
     @endif
     <div class="form-group row">
         <div class="col-md-6 text-left">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-header">
                     <h5>Mis Reuniones</h5>
                 </div>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="col-md-6 text-left">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-header">
                     <h5>Mis Tareas</h5>
                 </div>

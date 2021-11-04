@@ -4,6 +4,7 @@ use App\Http\Controllers\AccionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActaController;
+use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReunionController;
 use App\Models\Accion;
@@ -49,3 +50,5 @@ Route::get('/actas-pendientes', [ActaController::class, 'pendientes'])->middlewa
 
 Route::get('/actas/{id}/pdf', [ActaController::class, 'createPDF'])->name('actas.download');
 Route::post('/actas/buscar', [ActaController::class, 'buscar'])->name('actas.buscar');
+
+Route::get('/actas/{id}/aprobar', [AprobacionController::class, 'aprobar'])->middleware('can:actas')->name('acta.aprobar');

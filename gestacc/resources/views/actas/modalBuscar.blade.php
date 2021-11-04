@@ -66,7 +66,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="submit" id="submit">Buscar</button>
-                    <button class="btn btn-secondary" id="cancelar">Cancelar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal" id="cancelar">Cancelar</button>
                     
                 </div>
             </div>

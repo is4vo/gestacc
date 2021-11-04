@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Accion;
 use App\Models\Acta;
+use App\Models\Aprobacion;
 use App\Models\Asistente;
 use App\Models\AsistenteReunion;
 use App\Models\Reunion;
@@ -24,7 +25,8 @@ class ActaController extends Controller
      */
     public function pendientes()
     {
-        $actas = Acta::where('estado', 'Pendiente')->get();
+        $pendientes = Aprobacion::where('ref_miembro', Auth::id())->where('aprueba', 0)->pluck('ref_acta')->toArray();
+        $actas = Acta::find($pendientes);
         return view('actas.pendientes', compact('actas'));
     }
 
@@ -46,7 +48,13 @@ class ActaController extends Controller
             array_push($asistentes, $u);
         };
         $temas = TemaReunion::where('ref_reunion', $id)->get();
-        return view('actas.crear', compact('usuarios', 'reunion', 'asistentes', 'temas'));
+
+        $pendientes = Acta::where('estado', 'Pendiente')->get();
+        foreach($pendientes as $pendiente){
+            $faltan = Aprobacion::where('ref_acta', $pendiente->id)->where('aprueba', 0)->pluck('ref_miembro')->toArray();
+            $pendiente['miembros_faltantes'] = User::find($faltan);
+        }
+        return view('actas.crear', compact('usuarios', 'reunion', 'asistentes', 'temas', 'pendientes'));
     }
 
     /**
@@ -66,14 +74,18 @@ class ActaController extends Controller
             'asistentes' => ['required'],
             'participantes' => ['required'],
         ]); 
+
+        //Cambia estado de reunion
         $reunion = Reunion::find($request->reunion);
         $reunion->estado = "Realizada";
         $reunion->save();
 
+        //Crea el acta
         $data['ref_usuario'] = Auth::id();
         $data['ref_reunion'] = $reunion->id;
         $acta = Acta::create($data);
 
+        //Crea los temas, tareas y acuerdos
         $temas = TemaReunion::where('ref_reunion', $reunion->id)->get();
         foreach ($temas as $tema){
             $acciones = $request->input("accion" .$tema->id);
@@ -116,6 +128,8 @@ class ActaController extends Controller
             }
             
         };
+
+        //Registra los asistentes
         $asistentes = $request->input('asistentes');
         $participantes = $request->input('participantes');
         foreach($asistentes as $asistente){
@@ -134,7 +148,15 @@ class ActaController extends Controller
                 );
             }
         };
-        
+
+        //Crea la aprobacion del acta
+        $miembros = User::role(['Miembro', 'Admin'])->get();
+        foreach($miembros as $miembro){
+            Aprobacion::create(
+                ['ref_miembro' => $miembro->id,
+                'ref_acta' => $acta->id]
+            );
+        }
         
         return redirect()->route('home')->with('success', 'Acta guardada con éxito.');
     }

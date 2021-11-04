@@ -6,9 +6,9 @@
 
 @section('content')
 <div>
-    <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
+    <div class="form-group row">
         <div class="col-md-6 text-left">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-header">
                     <h5><b>Información del acta</b></h5>
                 </div>
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="col-md-6 text-left">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-header">
                     <h5><b>Detalles de tarea</b></h5>
                 </div>
