@@ -22,9 +22,9 @@
         </div>
         <div class="">
             <ul>
-                <li>Fecha: {{$acta->fecha_reunion}}</li>
-                <li>Hora de Inicio: {{$acta->hora_inicio}}</li>
-                <li>Hora de Término: {{$acta->hora_termino}}</li>
+                <li>Fecha: {{date('d-m-Y', strtotime($acta->fecha_reunion))}}</li>
+                <li>Hora de Inicio: {{date('H:i', strtotime($acta->hora_inicio))}}</li>
+                <li>Hora de Término: {{date('H:i', strtotime($acta->hora_termino))}}</li>
             </ul>
         </div>
         @if($ver==1)

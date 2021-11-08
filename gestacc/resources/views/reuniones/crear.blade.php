@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-handshake" style="color: #4d5fa7;"></i> 
     Crear reunión
 @endsection
 
@@ -108,10 +109,10 @@
                 @error('lista_temas.*')
                     <p style="color: red; font-size:11px">{{ $message }}</p>
                 @enderror
-                <table id="lista_temas" class="table table-striped">
-                    <thead class="thead-light">
+                <table id="lista_temas" class="table">
+                    <thead>
                         <tr>
-                            <th>  Título de tema</th>
+                            <th> Título de tema</th>
                             <th style="width: 100px"></th>
                         </tr>
                     </thead>
@@ -172,7 +173,7 @@
 
     $("#cancelar").click(function(){
         if(confirm('¿Está seguro que desea cancelar?')){
-            window.location.href='{{route('reuniones.index')}}';
+            window.history.back();
         }
     });
 

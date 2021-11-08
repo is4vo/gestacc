@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-folder-open" style="color: #4d5fa7;"></i> 
     Actas pendientes de cierre
 @endsection
 
@@ -10,23 +11,21 @@
     <div class="card">
         @if($actas->count())
             <div class="card-body">
-                <table id="tabla_actas" class="table table-striped">
-                    <thead>
+                <table id="tabla_actas" class="table table-hover text-center">
+                    <thead class="thead-light">
                         <tr>
-                            <th>ID acta</th>
+                            <th>Fecha</th>
                             <th>Tipo reunión</th>
                             <th>Número reunión</th>
-                            <th>Fecha</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($actas as $acta)
                             <tr>
-                                <td>{{$acta->id}}</td>
+                                <td>{{date('d-m-Y', strtotime($acta->fecha_reunion))}}</td>
                                 <td>{{$acta->tipo_reunion}}</td>
                                 <td>{{$acta->numero_reunion}}</td>
-                                <td>{{$acta->fecha_reunion}}</td>
                                 <td><a href = "{{ route('actas.show', $acta->id) }}" class="btn"> <i class="fas fa-info-circle"></i></a></td>
                             </tr>
                         @endforeach
@@ -45,7 +44,7 @@
 <script>
     $(document).ready( function () {
         $('#tabla_actas').DataTable({
-            "info":     false
+            "info":     false,
         });
     } );
 </script>

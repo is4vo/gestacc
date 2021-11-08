@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-users" style="color: #4d5fa7;"></i> 
     Editar usuario
 @endsection
 
@@ -66,8 +67,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit"> <i class="fas fa-save"></i> Guardar</button>
-                        <a class="btn btn-secondary" href= "{{ route('usuarios.index') }}"> <i class="fas fa-times"></i> Cancelar</a>
+                        <button class="btn btn-primary" onclick="return confirm('¿Está seguro que desea guardar?')" type="submit"> <i class="fas fa-save"></i> Guardar</button>
+                        <a class="btn btn-secondary" onclick="return confirm('¿Está seguro que desea cancelar?')" href= "{{ route('usuarios.index') }}"> <i class="fas fa-times"></i> Cancelar</a>
                     </div>
                 </form>
             </div>

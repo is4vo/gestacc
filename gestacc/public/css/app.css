@@ -5591,7 +5591,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -5693,7 +5693,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -10035,21 +10035,6 @@ h3 {
 }
 
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #ffffff;
-}
-
-
-
-p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  line-height: 1.7em;
-  color: rgb(31, 31, 31);
-}
-
 a,
 a:hover,
 a:focus {
@@ -10130,7 +10115,7 @@ a:focus {
 
 #sidebar ul li a:hover {
   color: #4d5fa7;
-  background: #fff;
+  background: rgb(255, 255, 255);
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   margin-left: 10px;
@@ -10237,7 +10222,6 @@ a.article:hover {
   min-height: 100%; 
   margin: 0 0 0 auto;
   background: #fff;
-  border-radius: 30px;
 }
 
 .modal.fade .modal-dialog.modal-dialog-slideout {

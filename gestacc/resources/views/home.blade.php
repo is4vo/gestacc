@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-home" style="color: #4d5fa7;"></i>
     Inicio 
     
 @endsection
@@ -18,23 +19,24 @@
     <div class="form-group row">
         <div class="col-md-6 text-left">
             <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5>Mis Reuniones</h5>
-                </div>
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Mis Reuniones
+                    <i class="far fa-calendar-alt fa-2x" style="color: #4d5fa7;"></i>
+                </h5>
                 <div class="card-body">
                     @if($reuniones->count())
-                        <table class="table table-striped">
-                            <thead>
+                        <table class="table table-hover text-center">
+                            <thead class="thead-light">
                                 <th>Fecha</th>
                                 <th>Tipo reunion</th>
-                                <th>Número reunión</th>
+                                <th style="width: 30%">Número reunión</th>
                             </thead>
                             <tbody>
                                 @foreach($reuniones as $reunion)
                                 <tr>
-                                    <td>{{$reunion->fecha_reunion}}</td>
+                                    <td>{{date('d-m-Y', strtotime($reunion->fecha_reunion))}}</td>
                                     <td>{{$reunion->tipo_reunion}}</td>
-                                    <td>{{$reunion->numero_reunion}}</td>
+                                    <td class="text-center">{{$reunion->numero_reunion}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -55,20 +57,21 @@
 
         <div class="col-md-6 text-left">
             <div class="card shadow-sm">
-                <div class="card-header">
-                    <h5>Mis Tareas</h5>
-                </div>
+                <h5 class="card-header d-flex justify-content-between align-items-center">
+                    Mis Tareas
+                    <i class="fas fa-tasks fa-2x" style="color: #4d5fa7;"></i>
+                </h5>
                 <div class="card-body">
                     @if($tareas->count())
-                        <table class="table table-striped">
-                            <thead>
-                                <th>Fecha vencimiento</th>
+                        <table class="table table-hover text-center">
+                            <thead class="thead-light">
+                                <th style="width: 35%">Fecha vencimiento</th>
                                 <th>Tarea</th>
                             </thead>
                             <tbody>
                                 @foreach($tareas as $tarea)
                                 <tr>
-                                    <td>{{$tarea->vencimiento}}</td>
+                                    <td>{{date('d-m-Y', strtotime($tarea->vencimiento))}}</td>
                                     <td>{{$tarea->titulo}}</td>
                                 </tr>
                                 @endforeach
@@ -112,10 +115,4 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function(){
-        
-    });
-    $("#modalAlertas").modal('show');
-</script>
 @endsection

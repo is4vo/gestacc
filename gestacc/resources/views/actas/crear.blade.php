@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-folder-open" style="color: #4d5fa7;"></i>
     Crear acta
 @endsection
 
@@ -77,8 +78,8 @@
                     @enderror
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <table class="table table-striped" id="lista_asistentes">
-                                <thead class="thead-light">
+                            <table class="table table-hover" id="lista_asistentes">
+                                <thead>
                                     <th>Participante</th>
                                     <th style="width: 200px">Asiste</th>
                                 </thead>
@@ -117,8 +118,8 @@
                             <div class="col-md-12 text-right">
                                 <a name="agregarAccion.{{$tema->id}}" style="color: gray" class="btn" id="agregarAccion.{{$tema->id}}"> <i class="fas fa-plus-circle"></i> Agregar nueva acción</a>
                             </div>
-                            <table class="table table-striped" id="lista_acciones{{$tema->id}}">
-                                <thead class="thead-light">
+                            <table class="table table-hover text-center" id="lista_acciones{{$tema->id}}">
+                                <thead>
                                     <tr>
                                         <th>Acción a realizar</th>
                                         <th>Tipo</th>
@@ -174,18 +175,18 @@
     </div>
     @include('actas.modalAgregarAsistente')
 
-    <script>
-        $(document).ready(function(){ 
-            $('.btn').click(function(){  
-                var id = $(this).attr("id").split('.')[1]; 
-                $('#lista_acciones'+id+'').append('<tr id="row'+id+'" class="dynamic-added"><td><input name="accion'+id+'[]" id="accion'+id+'[]" type="text" class="form-control" required placeholder="Ingrese accion a realizar"></td><td><select for="tipo" id="tipo'+id+'[]" name="tipo'+id+'[]" class="form-control tipo-opt"><option value="Ejecución">Ejecución</option><option value="Acuerdo">Acuerdo</option></select></td><td><select for="encargado" id="encargado'+id+'[]" name="encargado'+id+'[]" class="form-control encargado-opt">@foreach($usuarios as $usuario)<option value="{{$usuario->id}}">{{$usuario->name}}</option>@endforeach</select></td><td><input id="fechaVencimiento'+id+'[]" type="date" class="form-control fecha-opt" name="fechaVencimiento'+id+'[]" required></td><td style="width: 100px"><button type="button" class="btn btn_remove" name="remove"> <i class="fas fa-trash-alt"></i></button></td></tr></tr>'); 
-                
-            });  
+<script>
+    $(document).ready(function(){ 
+        $('.btn').click(function(){  
+            var id = $(this).attr("id").split('.')[1]; 
+            $('#lista_acciones'+id+'').append('<tr id="row'+id+'" class="dynamic-added"><td><input name="accion'+id+'[]" id="accion'+id+'[]" type="text" class="form-control" required placeholder="Ingrese accion a realizar"></td><td><select for="tipo" id="tipo'+id+'[]" name="tipo'+id+'[]" class="form-control"><option value="Ejecución">Ejecución</option><option value="Acuerdo">Acuerdo</option></select></td><td><select for="encargado" id="encargado'+id+'[]" name="encargado'+id+'[]" class="form-control">@foreach($usuarios as $usuario)<option value="{{$usuario->id}}">{{$usuario->name}}</option>@endforeach</select></td><td><input id="fechaVencimiento'+id+'[]" type="date" class="form-control" name="fechaVencimiento'+id+'[]" required></td><td style="width: 100px"><button type="button" class="btn btn_remove" name="remove"> <i class="fas fa-trash-alt"></i></button></td></tr></tr>'); 
+            
+        });  
 
-            $(".table").on("click", ".btn_remove", function() {
-                $(this).closest("tr").remove();
-            });
+        $(".table").on("click", ".btn_remove", function() {
+            $(this).closest("tr").remove();
         });
+    });
 
     $("#cancelar").click(function(){
         if(confirm('¿Está seguro que desea cancelar?')){
@@ -198,6 +199,6 @@
             $('#whole_page_loader').show();
         }
     });
-    </script>
+</script>
 
 @endsection

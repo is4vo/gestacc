@@ -5,14 +5,14 @@
             @csrf 
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Filtrar actas</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-filter" style="color: #4d5fa7;"></i> Filtrar actas</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Ingrese palabras clave..." >
-                    <hr>
+                    <br>
                     <h6> Buscar en:</h6>
                     <div class="container">
                         <input type="checkbox" name="temas">
@@ -48,7 +48,6 @@
                         <label for="fecha_final">Fecha final:</label>
                         <input type="date" class="form-control" id="fecha_final" name="fecha_final" min="">
                     </div>
-                    
                     <hr>
                     <h6>Otros</h6>
                     <div class="container">

@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title w-100">Agregar asistentes</h5>
+                <h5 class="modal-title w-100"><i class="fas fa-plus" style="color: #4d5fa7;"></i> Agregar asistentes</h5>
             </div>
             <div class="modal-body">
                 <div class="card">

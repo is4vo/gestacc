@@ -29,6 +29,10 @@ class HomeController extends Controller
             ->take(5)
             ->get();
             $alertas = [];
+            $tareas_pendientes = Accion::where('ref_usuario', Auth::id())->where('vencimiento', '<=', Carbon::now()->addDay())->get();
+            foreach($tareas_pendientes as $tarea){
+                array_push($alertas, "Tarea: '".$tarea->titulo."' está por vencer (".$tarea->vencimiento.").");
+            }
             if (Auth::user()->hasPermissionTo('reunion')){
                 $reuniones_no_realizadas = Reunion::where('fecha_reunion', '<', Carbon::now())
                 ->where('estado', 'Pendiente')

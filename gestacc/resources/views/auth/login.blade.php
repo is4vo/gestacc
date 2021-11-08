@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-sign-in-alt" style="color: #4d5fa7;"></i> 
     Iniciar sesión
 @endsection
 

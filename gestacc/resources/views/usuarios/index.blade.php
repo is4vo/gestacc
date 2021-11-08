@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-users" style="color: #4d5fa7;"></i> 
     Usuarios
 @endsection
 
@@ -12,8 +13,8 @@
         </div>
         @if($usuarios->count())
             <div class="card-body">
-                <table id="tabla_usuarios" class="table table-striped">
-                    <thead>
+                <table id="tabla_usuarios" class="table table-hover text-center">
+                    <thead class="thead-light">
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
@@ -35,9 +36,9 @@
                                 </td>
                                 <td style="width: 50px">
                                     @if($usuario->status == 1)
-                                        <a href = "{{ route('usuarios.enable', $usuario->id)}}" class="btn"> <i class="fas fa-eye-slash"></i></a>
+                                        <a href = "{{ route('usuarios.enable', $usuario->id)}}" onclick="return confirm('¿Está seguro que desea deshabilitar?')" class="btn"> <i class="fas fa-eye-slash"></i></a>
                                     @else
-                                        <a href = "{{ route('usuarios.enable', $usuario->id)}}" class="btn"> <i class="fas fa-eye"></i></a>
+                                        <a href = "{{ route('usuarios.enable', $usuario->id)}}" onclick="return confirm('¿Está seguro que desea habilitar?')" class="btn"> <i class="fas fa-eye"></i></a>
                                     @endif
                                     
                                 </td>

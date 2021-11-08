@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title w-100" id="modalProfileLabel">Crear usuario</h5>
+                <h5 class="modal-title w-100" id="modalProfileLabel"> <i class="fas fa-users" style="color: #4d5fa7;"></i> Crear usuario</h5>
             </div>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                    <button class="btn btn-primary" onclick="return confirm('¿Está seguro que desea guardar?')" type="submit"><i class="fas fa-save"></i> Guardar</button>
                     <button class="btn btn-secondary" data-dismiss="modal"> <i class="fas fa-times"></i> Cancelar</button>
                 </div>
             </form>

@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('titulo')
+<i class="fas fa-home" style="color: #4d5fa7;"></i>
     Inicio
 @endsection
 
