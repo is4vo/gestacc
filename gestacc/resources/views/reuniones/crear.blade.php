@@ -179,8 +179,26 @@
 
     $("#submit").click(function(){
         if(confirm('¿Está seguro que desea guardar?')){
+            /* event.preventDefault();
+            var $post = {};
+            $post.fecha = $("#fecha_reunion").val();
+            $post.inicio = $("#hora_inicio").val();
+            $post.termino = $("#hora_termino").val();
+            $post._token = document.getElementsByName("_token")[0].value;
+            console.log($post);
+            $.get("{{route('choque')}}", $post, function(data){
+                alert(data);
+            })
+            $.ajax({
+                url: "{{route('choque')}}", 
+                type: 'get',
+                data: $post,
+            }).done(function(res){
+                console.log(res);
+            }); */
             $('#whole_page_loader').show();
         }
     });
+
 </script>
 @endsection

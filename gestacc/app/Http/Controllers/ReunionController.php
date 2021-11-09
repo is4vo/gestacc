@@ -97,7 +97,7 @@ class ReunionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Cancela la reunion.
      *
      * @param  \App\Models\Reunion  $reunion
      * @return \Illuminate\Http\Response
@@ -109,48 +109,27 @@ class ReunionController extends Controller
         $reunion->save();
         return redirect()->route('reuniones.index')->with('warning', 'Reunión cancelada.');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reunion  $reunion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reunion $reunion)
-    {
-        //
+
+    public function choque_horarios(Request $request){
+        echo 'controller';
+        $fecha = $request->input('fecha_reunion');
+        $inicio = $request->input('hora_inicio');
+        $termino = $request->input('hora_termino');
+        $reunion = Reunion::where('fecha_reunion', $fecha)->where(function($query) use ($inicio, $termino) {
+            $query->where(function ($query) use ($inicio, $termino) {
+                $query->where('hora_inicio', '>=', $inicio)->where('hora_termino', '<=', $inicio);
+            })->orWhere(function($query) use ($inicio, $termino) {
+                $query->where('hora_inicio', '>=', $termino)->where('hora_termino', '<=', $termino);
+            });
+        })->get();
+        if(!empty($reunion)){
+            echo 'Existe un choque de horario';
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reunion  $reunion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reunion $reunion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reunion  $reunion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reunion $reunion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Reunion  $reunion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reunion $reunion)
-    {
-        //
+    public function cambiar_estado(Request $request){
+        $reunion = Reunion::find($request->input('id'));
+        $reunion->abierta = 0;
+        $reunion->save();
     }
 }

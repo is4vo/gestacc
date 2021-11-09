@@ -15,8 +15,9 @@ class Acta extends Model
         'fecha_reunion',
         'hora_inicio',
         'hora_termino',
-        'cerrada',
+        'estado',
         'ref_reunion',
         'ref_usuario',
+        'abierta',
     ];
 }

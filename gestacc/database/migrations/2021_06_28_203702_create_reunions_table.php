@@ -22,6 +22,7 @@ class CreateReunionsTable extends Migration
             $table->time('hora_termino');
             $table->string('estado')->default('Pendiente');
             $table->unsignedBigInteger('ref_usuario');
+            $table->boolean('abierta')->default(false);
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->unique(['numero_reunion', 'tipo_reunion']);
             $table->timestamps();

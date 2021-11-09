@@ -12,6 +12,7 @@ use App\Models\Tema;
 use App\Models\TemaReunion;
 use App\Models\User;
 use App\Notifications\NuevaTarea;
+use App\Notifications\ActaPendiente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -37,24 +38,31 @@ class ActaController extends Controller
      */
     public function create($id)
     {
-        $usuarios = User::where('status', 1)->get();
         $reunion = Reunion::find($id);
-        
-        $asistentes_reunion = AsistenteReunion::where('ref_reunion', $id)->get();
-        $asistentes = array();
-        foreach ($asistentes_reunion as $a){
-            $id_u = $a->ref_usuario;
-            $u = User::find($id_u);
-            array_push($asistentes, $u);
-        };
-        $temas = TemaReunion::where('ref_reunion', $id)->get();
+        if($reunion->abierta == 0){
+            $reunion->abierta = 1;
+            $reunion->save();
+            $usuarios = User::where('status', 1)->get();
 
-        $pendientes = Acta::where('estado', 'Pendiente')->get();
-        foreach($pendientes as $pendiente){
-            $faltan = Aprobacion::where('ref_acta', $pendiente->id)->where('aprueba', 0)->pluck('ref_miembro')->toArray();
-            $pendiente['miembros_faltantes'] = User::find($faltan);
+            $asistentes_reunion = AsistenteReunion::where('ref_reunion', $id)->get();
+            $asistentes = array();
+            foreach ($asistentes_reunion as $a){
+                $id_u = $a->ref_usuario;
+                $u = User::find($id_u);
+                array_push($asistentes, $u);
+            };
+            $temas = TemaReunion::where('ref_reunion', $id)->get();
+
+            $pendientes = Acta::where('estado', 'Pendiente')->where('fecha_reunion', '<', $reunion->fecha_reunion)->get();
+            foreach($pendientes as $pendiente){
+                $faltan = Aprobacion::where('ref_acta', $pendiente->id)->where('aprueba', 0)->pluck('ref_miembro')->toArray();
+                $pendiente['miembros_faltantes'] = User::find($faltan);
+            }
+            return view('actas.crear', compact('usuarios', 'reunion', 'asistentes', 'temas', 'pendientes'));
         }
-        return view('actas.crear', compact('usuarios', 'reunion', 'asistentes', 'temas', 'pendientes'));
+        else{
+            return redirect()->route('reuniones.index')->with('error', 'El acta ya está siendo creada.');
+        }
     }
 
     /**
@@ -78,6 +86,7 @@ class ActaController extends Controller
         //Cambia estado de reunion
         $reunion = Reunion::find($request->reunion);
         $reunion->estado = "Realizada";
+        $reunion->abierta = 0;
         $reunion->save();
 
         //Crea el acta
@@ -156,6 +165,7 @@ class ActaController extends Controller
                 ['ref_miembro' => $miembro->id,
                 'ref_acta' => $acta->id]
             );
+            $miembro->notify(new ActaPendiente($acta));
         }
         
         return redirect()->route('home')->with('success', 'Acta guardada con éxito.');
@@ -305,7 +315,6 @@ class ActaController extends Controller
         ];
         $pdf = PDF::loadView('actas.download', $data)->setPaper('letter');
         return $pdf->stream('acta.pdf');
-        //return view('actas.download', compact('acta', 'asistentes', 'temas', 'ver'));
     }
 
 

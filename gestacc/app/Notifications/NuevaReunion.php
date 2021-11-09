@@ -46,9 +46,9 @@ class NuevaReunion extends Notification
                     ->line('Se ha agendado una nueva reunión con la siguiente información:')
                     ->line('Tipo de reunión: '.$reunion->tipo_reunion)
                     ->line('Numero de reunión: '.$reunion->numero_reunion)
-                    ->line('Fecha: '.$reunion->fecha_reunion)
-                    ->line('Hora de inicio: '.$reunion->hora_inicio)
-                    ->line('Hora de término: '.$reunion->hora_termino);
+                    ->line('Fecha: '.date('d-m-Y', strtotime($reunion->fecha_reunion)))
+                    ->line('Hora de inicio: '.date('H:i', strtotime($reunion->hora_inicio)))
+                    ->line('Hora de término: '.date('H:i', strtotime($reunion->hora_termino)));
     }
 
     /**

@@ -141,13 +141,13 @@
                 @if($pendientes->count())
                     <div class="card">
                         <div class="card-header">
-                            <h5><b>Actas pendientes de aprobación</b></h5>
+                            <h5>Actas pendientes de aprobación</h5>
                         </div>
                     
                         <div class="card-body">
                             @foreach($pendientes as $acta)
                                 <div class="form-group row" style="margin-left: 10px; margin-right: 10px">
-                                    <h6><b>Acta Reunión {{ $acta->tipo_reunion }} - {{$acta->numero_reunion}}, Fecha: {{$acta->fecha_reunion}} </b></h6>
+                                    <h6>Acta Reunión {{ $acta->tipo_reunion }}-{{$acta->numero_reunion}}, Fecha: {{date('d-m-Y', strtotime($acta->fecha_reunion))}} </h6>
                                 </div>
                                 <div class="form-group row" style="margin-left: 10px; margin-right: 10px; color: grey;">
                                     Falta por aprobar: 
@@ -199,6 +199,19 @@
             $('#whole_page_loader').show();
         }
     });
+
+    window.onbeforeunload = function() {
+        event.preventDefault();
+        var $post = {};
+        $post.id = "{{$reunion->id}}";
+        $post._token = document.getElementsByName("_token")[0].value;
+        $.ajax({
+            url: "{{route('cambiar_estado')}}", 
+            type: 'get',
+            data: $post,
+            cache: false,
+        });
+    };
 </script>
 
 @endsection

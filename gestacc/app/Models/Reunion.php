@@ -16,5 +16,6 @@ class Reunion extends Model
         'hora_inicio',
         'hora_termino',
         'ref_usuario',
+        'abierta',
     ];
 }

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NuevoUsuario extends Notification
+class ActaPendiente extends Notification
 {
     use Queueable;
 
@@ -16,9 +16,9 @@ class NuevoUsuario extends Notification
      *
      * @return void
      */
-    public function __construct($pw)
+    public function __construct($acta)
     {
-        $this->pw = $pw; 
+        $this->acta = $acta; 
     }
 
     /**
@@ -40,12 +40,13 @@ class NuevoUsuario extends Notification
      */
     public function toMail($notifiable)
     {
-        $pw = $this->pw;
+        $acta = $this->acta;
         return (new MailMessage)
                     ->greeting('Hola,')
-                    ->line('Se le ha registrado en el sistema. Su nombre de usuario es su dirección de correo electrónico y su contraseña es: ')
-                    ->line($pw)
-                    ->action('Ir', url('/'));
+                    ->line('Tiene un acta pendiente por aprobar')
+                    ->line('Acta: Reunión '.$acta->tipo_reunion.'-'.$acta->numero_reunion)
+                    ->line('Fecha: '.date('d-m-Y', strtotime($acta->fecha_reunion)))
+                    ->action('Ver más', url('/'));
     }
 
     /**

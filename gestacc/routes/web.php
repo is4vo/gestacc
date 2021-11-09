@@ -52,3 +52,6 @@ Route::get('/actas/{id}/pdf', [ActaController::class, 'createPDF'])->name('actas
 Route::post('/actas/buscar', [ActaController::class, 'buscar'])->name('actas.buscar');
 
 Route::get('/actas/{id}/aprobar', [AprobacionController::class, 'aprobar'])->middleware('can:actas')->name('acta.aprobar');
+
+Route::get('/ver-choque', [ReunionController::class, 'choque_horarios'])->name('choque');
+Route::get('/cambiar-estado', [ReunionController::class, 'cambiar_estado'])->middleware('can:actas')->name('cambiar_estado');

@@ -37,7 +37,7 @@
                 </ul>
             </div>
         @endif
-        <div class="">
+        <div>
             <p> Temas Tratados </p>
             <ol>
                 @foreach($temas as $tema)
@@ -46,18 +46,22 @@
             </ol>
         </div>
         @if($ver == 1)
-            <div class="">
+            <div>
                 <p>Acciones, Acuerdos y Comentarios</p>
                 <ol>
                     @foreach($temas as $tema)
-                        <li>{{$tema->comentarios}}
+                        <li>
                         @foreach($tema['acciones'] as $accion)
+                        @if($accion->tipo == 'Ejecución')
+                            Accion: {{$accion->titulo}} ({{$accion->usuario->name}}).
+                        @elseif($accion->tipo == 'Acuerdo')
+                            Acuerdo: {{$accion->titulo}}
+                        @endif
                             <br>
-                            {{$accion->titulo}}
-                            @if($accion->tipo == 'Ejecución')
-                                ({{$accion->usuario->name}}).
-                            @endif
                         @endforeach
+                        @if($tema->comentarios != null)
+                            Comentarios: {{$tema->comentarios}}
+                        @endif
                         </li>
                     @endforeach
                 </ol>

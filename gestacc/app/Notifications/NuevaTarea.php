@@ -45,8 +45,8 @@ class NuevaTarea extends Notification
                     ->greeting('Hola,')
                     ->line('Se le ha asignado una nueva tarea:')
                     ->line('Tarea: '.$tarea->titulo)
-                    ->line('Fecha de vencimiento: '.$tarea->vencimiento)
-                    ->action('Ver más', url('https://localhost:8000'));
+                    ->line('Fecha de vencimiento: '.date('d-m-Y', strtotime($tarea->vencimiento)))
+                    ->action('Ver más', url('/'));
     }
 
     /**
