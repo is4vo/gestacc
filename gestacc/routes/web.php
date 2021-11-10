@@ -38,20 +38,24 @@ Auth::routes();
 //Reuniones
 Route::resource('reuniones', ReunionController::class)->only('create', 'index', 'store')->middleware('can:reunion')->names('reuniones');
 Route::get('/reuniones/{user}/cancel', [ReunionController::class, 'cancel' ])->middleware('can:reunion')->name('reuniones.cancel');
+Route::get('/ver-choque', [ReunionController::class, 'choque_horarios'])->name('choque');
+Route::get('/cambiar-estado-reunion', [ReunionController::class, 'cambiar_estado'])->middleware('can:actas')->name('reuniones.cambiar_estado');
 
 //Actas
-Route::resource('actas', ActaController::class)->only('update', 'store', 'show')->middleware('can:actas')->names('actas');
+Route::resource('actas', ActaController::class)->except('destroy', 'index', 'create', 'update')->middleware('can:actas')->names('actas');
 
 Route::get('/actas', [ActaController::class, 'index'])->name('actas.index');
 
 Route::get('/actas/create/{id}', [ActaController::class, 'create'])->middleware('can:actas')->name('actas.create');
+
+Route::post('/actas/update/{id}', [ActaController::class, 'update'])->middleware('can:actas')->name('actas.update');
 
 Route::get('/actas-pendientes', [ActaController::class, 'pendientes'])->middleware('can:actas')->name('actas.pendientes');
 
 Route::get('/actas/{id}/pdf', [ActaController::class, 'createPDF'])->name('actas.download');
 Route::post('/actas/buscar', [ActaController::class, 'buscar'])->name('actas.buscar');
 
-Route::get('/actas/{id}/aprobar', [AprobacionController::class, 'aprobar'])->middleware('can:actas')->name('acta.aprobar');
+Route::get('/actas/{id}/aprobar', [AprobacionController::class, 'aprobar'])->middleware('can:actas')->name('actas.aprobar');
 
-Route::get('/ver-choque', [ReunionController::class, 'choque_horarios'])->name('choque');
-Route::get('/cambiar-estado', [ReunionController::class, 'cambiar_estado'])->middleware('can:actas')->name('cambiar_estado');
+Route::get('/cambiar-estado-acta', [ActaController::class, 'cambiar_estado'])->middleware('can:actas')->name('actas.cambiar_estado');
+

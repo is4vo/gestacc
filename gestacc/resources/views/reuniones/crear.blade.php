@@ -174,6 +174,7 @@
     $("#cancelar").click(function(){
         if(confirm('¿Está seguro que desea cancelar?')){
             window.history.back();
+            return false;
         }
     });
 

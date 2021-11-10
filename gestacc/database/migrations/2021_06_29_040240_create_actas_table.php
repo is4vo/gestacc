@@ -24,6 +24,7 @@ class CreateActasTable extends Migration
             $table->unsignedBigInteger('ref_usuario');
             $table->unsignedBigInteger('ref_reunion');
             $table->boolean('abierta')->default(false);
+            $table->text('adendas')->nullable();
             $table->foreign('ref_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ref_reunion')->references('id')->on('reunions')->onDelete('cascade');
             $table->unique(['numero_reunion', 'tipo_reunion']);

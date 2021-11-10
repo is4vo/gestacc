@@ -199,9 +199,25 @@ class ActaController extends Controller
      * @param  \App\Models\Acta  $acta
      * @return \Illuminate\Http\Response
      */
-    public function edit(Acta $acta)
+    public function edit($id)
     {
-        //
+        $acta = Acta::find($id);
+        if($acta->abierta == 0){
+            $acta->abierta = 1;
+            $acta->save();
+            $temas = Tema::where('ref_acta', $id)->get();
+
+            foreach($temas as $tema){
+                $tema['tareas'] = Accion::where('ref_tema', $tema->id)->get();
+            }
+                
+            return view('actas.adenda', compact('acta', 'temas'));
+            
+        }
+        else{
+            return redirect()->back()->with('error', 'El acta ya está siendo editada.');
+        }
+        
     }
 
     /**
@@ -211,10 +227,19 @@ class ActaController extends Controller
      * @param  \App\Models\Acta  $acta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Acta $acta)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'adendas' => ['required'],
+        ]); 
+        $acta = Acta::find($id);
+        $acta->abierta = 0;
+        $acta->adendas = $request->adendas;
+        $acta->save();
+        return redirect()->route('actas.show', $acta->id)->with('success', 'Acta modificada con éxito.');
+
     }
+    
     /**
      * Update the specified resource in storage.
      *
@@ -315,6 +340,12 @@ class ActaController extends Controller
         ];
         $pdf = PDF::loadView('actas.download', $data)->setPaper('letter');
         return $pdf->stream('acta.pdf');
+    }
+
+    public function cambiar_estado(Request $request){
+        $acta = Acta::find($request->input('id'));
+        $acta->abierta = 0;
+        $acta->save();
     }
 
 

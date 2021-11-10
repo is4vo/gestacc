@@ -29,7 +29,7 @@
                             <thead class="thead-light">
                                 <th>Fecha</th>
                                 <th>Tipo reunion</th>
-                                <th style="width: 30%">Número reunión</th>
+                                <th style="width: 35%">Número reunión</th>
                             </thead>
                             <tbody>
                                 @foreach($reuniones as $reunion)
@@ -97,16 +97,17 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Alertas</h5>
+                <h5 class="modal-title"> <i class="fas fa-exclamation-triangle" style="color: #4d5fa7;"></i>  Alertas</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <ul class="list-group list-group-flush" style="width: 500px">
+            <div class="modal-body" style="max-height: 300px;overflow: scroll;background-color: rgb(250, 249, 249);">
                         @foreach($alertas as $alerta)
-                            <li class="list-group-item"> 
-                                <h6> {{$alerta}}</h6>
-                            </li>
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h6> {{$alerta}} </h6>
+                                </div>
+                            </div>
+                            <br>
                         @endforeach
                     </ul>
                 </div>

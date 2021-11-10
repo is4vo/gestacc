@@ -122,10 +122,10 @@
                                 <thead>
                                     <tr>
                                         <th>Acción a realizar</th>
-                                        <th>Tipo</th>
-                                        <th>Encargado</th>
-                                        <th>Fecha vencimiento</th>
-                                        <th style="width: 100px"></th>
+                                        <th style="width: 15%">Tipo</th>
+                                        <th style="width: 20%">Encargado</th>
+                                        <th style="width: 10%">Vencimiento</th>
+                                        <th style="width: 5%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -179,7 +179,7 @@
     $(document).ready(function(){ 
         $('.btn').click(function(){  
             var id = $(this).attr("id").split('.')[1]; 
-            $('#lista_acciones'+id+'').append('<tr id="row'+id+'" class="dynamic-added"><td><input name="accion'+id+'[]" id="accion'+id+'[]" type="text" class="form-control" required placeholder="Ingrese accion a realizar"></td><td><select for="tipo" id="tipo'+id+'[]" name="tipo'+id+'[]" class="form-control"><option value="Ejecución">Ejecución</option><option value="Acuerdo">Acuerdo</option></select></td><td><select for="encargado" id="encargado'+id+'[]" name="encargado'+id+'[]" class="form-control">@foreach($usuarios as $usuario)<option value="{{$usuario->id}}">{{$usuario->name}}</option>@endforeach</select></td><td><input id="fechaVencimiento'+id+'[]" type="date" class="form-control" name="fechaVencimiento'+id+'[]" required></td><td style="width: 100px"><button type="button" class="btn btn_remove" name="remove"> <i class="fas fa-trash-alt"></i></button></td></tr></tr>'); 
+            $('#lista_acciones'+id+'').append('<tr id="row'+id+'" class="dynamic-added"><td><input name="accion'+id+'[]" id="accion'+id+'[]" type="text" class="form-control" required placeholder="Ingrese accion a realizar"></td><td><select for="tipo" id="tipo'+id+'[]" name="tipo'+id+'[]" class="form-control"><option value="Ejecución">Ejecución</option><option value="Acuerdo">Acuerdo</option></select></td><td><select for="encargado" id="encargado'+id+'[]" name="encargado'+id+'[]" class="form-control">@foreach($usuarios as $usuario)<option value="{{$usuario->id}}">{{$usuario->name}}</option>@endforeach</select></td><td><input id="fechaVencimiento'+id+'[]" type="date" class="form-control" name="fechaVencimiento'+id+'[]" required></td><td><button type="button" class="btn btn_remove" name="remove"> <i class="fas fa-trash-alt"></i></button></td></tr>'); 
             
         });  
 
@@ -190,7 +190,8 @@
 
     $("#cancelar").click(function(){
         if(confirm('¿Está seguro que desea cancelar?')){
-            window.location.href='{{route('reuniones.index')}}';
+            window.history.back();
+            return false;
         }
     });
 
@@ -206,7 +207,7 @@
         $post.id = "{{$reunion->id}}";
         $post._token = document.getElementsByName("_token")[0].value;
         $.ajax({
-            url: "{{route('cambiar_estado')}}", 
+            url: "{{route('reuniones.cambiar_estado')}}", 
             type: 'get',
             data: $post,
             cache: false,

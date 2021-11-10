@@ -20,7 +20,7 @@
                 echo $date->format("Y");
             @endphp-{{$acta->numero_reunion}}</strong></h5>
         </div>
-        <div class="">
+        <div>
             <ul>
                 <li>Fecha: {{date('d-m-Y', strtotime($acta->fecha_reunion))}}</li>
                 <li>Hora de Inicio: {{date('H:i', strtotime($acta->hora_inicio))}}</li>
@@ -28,7 +28,7 @@
             </ul>
         </div>
         @if($ver==1)
-            <div class="">
+            <div>
                 <p> Asisten </p>
                 <ul>
                     @foreach($asistentes as $asistente)
@@ -52,12 +52,12 @@
                     @foreach($temas as $tema)
                         <li>
                         @foreach($tema['acciones'] as $accion)
-                        @if($accion->tipo == 'Ejecución')
-                            Accion: {{$accion->titulo}} ({{$accion->usuario->name}}).
-                        @elseif($accion->tipo == 'Acuerdo')
-                            Acuerdo: {{$accion->titulo}}
-                        @endif
-                            <br>
+                            @if($accion->tipo == 'Ejecución')
+                                Accion: {{$accion->titulo}} ({{$accion->usuario->name}}).
+                            @elseif($accion->tipo == 'Acuerdo')
+                                Acuerdo: {{$accion->titulo}}
+                            @endif
+                                <br>
                         @endforeach
                         @if($tema->comentarios != null)
                             Comentarios: {{$tema->comentarios}}
@@ -65,6 +65,14 @@
                         </li>
                     @endforeach
                 </ol>
+            </div>
+            <div>
+                @if($acta->adendas!=NULL)
+                    <p> Adendas </p>
+                    <ul>
+                        <li> {{$acta->adendas}}</li>
+                    </ul>
+                @endif
             </div>
         @endif
     </div>

@@ -33,7 +33,7 @@
                 </div>
                 <div class="card-body">
                     @foreach($temas as $tema)
-                        <h6>Tema: {{$tema->titulo}}</h6>
+                        <h6>Tema {{$loop->index+1}}: {{$tema->titulo}}</h6>
                         
                         <h6>Comentarios: {{$tema->comentarios}}</h6> 
                         <h6>Acuerdos y Tareas:</h6>
@@ -52,10 +52,26 @@
             </div>
         </div>
     </div>
+    @if($acta->adendas!=NULL)
+    <div class="form-group row">
+        <div class="col-md-12 text-left">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5>Adendas</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{$acta->adendas}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="form-group row">
         <div class="col-md-12 text-right">
-            <a onclick="return confirm('¿Está seguro que desea aprobar?')" href="{{ route('acta.aprobar', $acta->id) }}" class="btn" style="background-color: green; color: white;" id="submit"><i class="fas fa-check"></i> Aprobar</a>
+            <a href="{{route('actas.edit', $acta->id)}}" class="btn" style="border-color: rgb(172, 172, 172);color: rgb(94, 94, 94)"><i class="fas fa-edit"></i> Agregar adenda</a>
             <a class="btn btn-secondary" onclick="return confirm('¿Está seguro que desea rechazar? El acta seguirá pendiente.')" href="{{ route('actas.pendientes') }}" id="cancelar"> <i class="fas fa-times"></i> Rechazar</a>
+            <a onclick="return confirm('¿Está seguro que desea aprobar?')" href="{{ route('actas.aprobar', $acta->id) }}" class="btn" style="background-color: green; color: white;" id="submit"><i class="fas fa-check"></i> Aprobar</a>
         </div>
     </div>
 </div>

@@ -19,5 +19,6 @@ class Acta extends Model
         'ref_reunion',
         'ref_usuario',
         'abierta',
+        'adendas',
     ];
 }
