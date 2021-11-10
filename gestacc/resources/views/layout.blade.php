@@ -72,7 +72,7 @@
 
                 @can('tareas')
                     <li class="{{ setActive('tareas') }}">
-                        <a href="{{ route('tareas.index') }}"><i class="fas fa-tasks"></i> Mis Tareas</a>
+                        <a href="{{ route('tareas.index') }}"><i class="fas fa-tasks"></i> Tareas</a>
                     </li>
                 @endcan
 

@@ -18,13 +18,21 @@ class AccionController extends Controller
      */
     public function index()
     {
-
         $tareas = Accion::where('ref_usuario', Auth::id())
-        ->where('tipo', 'Ejecución')
-        ->where('estado', 'Pendiente')
-        ->get();
-        
-        return view('tareas.index', compact('tareas'));
+            ->where('tipo', 'Ejecución')
+            ->where('estado', 'Pendiente')
+            ->get();
+
+        if(Auth::user()->hasPermissionTo('reunion')){
+            $tareas_all = Accion::where('tipo', 'Ejecución')->where('estado', 'Pendiente')->get();
+            foreach($tareas_all as $tarea){
+                $tarea['encargado'] = User::find($tarea->ref_usuario);
+            }
+            return view('tareas.miembro', compact('tareas', 'tareas_all'));
+        }
+        else{
+            return view('tareas.index', compact('tareas'));
+        }
     }
 
     /**

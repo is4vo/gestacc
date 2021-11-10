@@ -2,7 +2,7 @@
 
 @section('titulo')
 <i class="fas fa-tasks" style="color: #4d5fa7;"></i>
-    Tareas
+    Mis tareas
 @endsection
 
 @section('content')
@@ -46,7 +46,8 @@
 <script>
     $(document).ready( function () {
         $('#tabla_tareas').DataTable({
-            "info":     false
+            "info":     false,
+            "order": [0, 'asc']
         });
     } );
 </script>

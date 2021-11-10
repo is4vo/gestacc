@@ -46,7 +46,9 @@
                     </h6> 
                     <hr>
                     <h6>Comentarios: 
+                        @if(auth()->id()==$encargado->id)
                         <a href ="" data-toggle="modal" data-target="#agregar_comentario" class="btn"> <i style="color: gray" class="fas fa-plus-circle"></i></a>
+                        @endif
                     </h6> 
                     {{$tarea->comentario}}
                     <hr>
