@@ -1,6 +1,7 @@
 <?php
 function setActive($ruta) {
-    return request()->routeIs($ruta) ? 'active' : '';
+    $pattern = $ruta . "*";
+    return request()->routeIs($pattern) ? 'active' : '';
 }; 
 
 function setActiveGroup($rutas) {

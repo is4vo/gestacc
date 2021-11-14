@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Lista los usuarios existentes en la base de datos.
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,29 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el usuario dado.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -51,11 +31,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $usuario = User::find($id);
-        return view('usuarios.edit', compact('usuario'));
+        return view('usuarios.editar', compact('usuario'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza los datos del usuario.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -66,7 +46,7 @@ class UserController extends Controller
         $user = User::find($id);
         if($user->email != $request->email){
             $validate=$request->validate([
-                'email'=>'required|string|unique:user',
+                'email'=>'required|string|unique:users',
                 ]);
             }
 
@@ -81,17 +61,20 @@ class UserController extends Controller
         $user->save();
 
         
-        return  redirect()->route('usuarios.index');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario modificado con éxito.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function enable($id)
     {
-        //
+        $user = User::find($id);
+        if($user->status == 1){
+            $user->status = 0;
+        }
+        else {
+            $user->status = 1;
+        }
+        $user->save();
+        return redirect()->route('usuarios.index')->with('success', 'Usuario modificado con éxito.');
     }
+
 }
