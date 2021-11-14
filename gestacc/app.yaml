@@ -1,0 +1,40 @@
+runtime: php  # language of the app
+env: flex     # let app engine know we use flexible environment
+runtime_config:
+ document_root: public   #folder where index.php is
+# Ensure we skip ".env", which is only for local development
+skip_files:
+ - .env #we want to skip this to make sure we don’t mess stuff up on the server
+env_variables:
+# Put production environment variables here.
+ APP_ENV: local   # or production
+ APP_DEBUG : true # or false 
+ APP_KEY: base64:FpEWppNdWSdGWYYH10zbbtOxn9+LlAavfWjlfLdEtbI= 
+ CACHE_DRIVER: database
+# instead of putting the cache in the database I recommend using 
+ SESSION_DRIVER: database #or file since both work
+ APP_LOG: daily
+ APP_TIMEZONE: America/Santiago #your timezone of choice
+# follow the part of the tutorial on setting up your SQL database
+ DB_CONNECTION: mysql
+ DB_HOST: localhost
+ DB_DATABASE: gestacc
+ DB_USERNAME: root
+ DB_PASSWORD: rko619asi
+ DB_SOCKET: /cloudsql/sistema-de-gestion-de-actas:southamerica-east1:gestacc
+ QUEUE_DRIVER: database #in case you execute queued jobs
+ MAIL_MAILER: smtp
+ MAIL_HOST: smtp.gmail.com
+ MAIL_PORT: 587
+ MAIL_USERNAME: isavocastro@gmail.com
+ MAIL_PASSWORD: HoldMeDown1
+ MAIL_ENCRYPTION: tls
+ MAIL_FROM_ADDRESS: isavocastro@gmail.com
+ MAIL_FROM_NAME: "GESTACC"
+
+ GOOGLE_VISION_PROJECT_ID : sistema-de-gestion-de-actas
+#we need this for the flex environment
+beta_settings:
+   # for Cloud SQL, set this value to the Cloud SQL connection name,
+   # e.g. "project:region:cloudsql-instance"
+   cloud_sql_instances: sistema-de-gestion-de-actas:southamerica-east1:gestacc
