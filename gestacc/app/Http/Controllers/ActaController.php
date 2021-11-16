@@ -236,6 +236,15 @@ class ActaController extends Controller
         $acta->abierta = 0;
         $acta->adendas = $request->adendas;
         $acta->save();
+
+        //Crea la aprobacion del acta
+        $aprobacion = Aprobacion::where('ref_acta', $acta->id)->get();
+        foreach($aprobacion as $a){
+            $a->aprueba = 0;
+            $a->save();
+            $miembro = User::find($a->ref_miembro);
+            $miembro->notify(new ActaPendiente($acta));
+        }
         return redirect()->route('actas.show', $acta->id)->with('success', 'Acta modificada con éxito.');
 
     }
