@@ -36,8 +36,8 @@
                         <input type="checkbox" name="Extraordinaria">
                         <label for="Extraordinaria">Extraordinaria</label>
                         <br>
-                        <input type="checkbox" name="Consejo de Escuela">
-                        <label for="Consejo de Escuela">Consejo de Escuela</label>
+                        <input type="checkbox" name="Consejo">
+                        <label for="Consejo">Consejo de Escuela</label>
                     </div>
                     <hr>
                     <h6>Rango de fechas: </h6>

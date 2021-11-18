@@ -69,7 +69,7 @@
     $(document).ready( function () {
         $('#tabla_reuniones').DataTable({
             "info":     false,
-            "order": [0, 'desc']
+            "order": []
         });
     } );
 </script>

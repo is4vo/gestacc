@@ -70,8 +70,7 @@
     $(document).ready( function () {
         $('#tabla_actas').DataTable({
             "info":     false,
-            "searching": false,
-            "order": [0, 'desc']
+            "order": []
         });
     } );
 </script>
