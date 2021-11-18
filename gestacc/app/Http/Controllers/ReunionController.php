@@ -20,7 +20,7 @@ class ReunionController extends Controller
      */
     public function index()
     {
-        $reuniones = Reunion::all();
+        $reuniones = Reunion::orderBy('fecha_reunion', 'DESC')->get();
 
         return view('reuniones.index', compact('reuniones'));
     }

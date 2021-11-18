@@ -189,7 +189,7 @@ class ActaController extends Controller
 
     public function index()
     {
-        $actas = Acta::all();
+        $actas = Acta::orderBy('fecha_reunion', 'DESC')->get();
         return view('actas.index', compact('actas'));
     }
 
@@ -264,10 +264,10 @@ class ActaController extends Controller
         ]);
         $actas = [];
         if($request->input('cerradas')=='on'){
-            $actas = Acta::where('estado', 'Cerrada')->pluck('id')->toArray();
+            $actas = Acta::where('estado', 'Cerrada')->orderBy('fecha_reunion', 'desc')->pluck('id')->toArray();
         }
         else{
-            $actas = Acta::all()->pluck('id')->toArray();
+            $actas = Acta::orderBy('fecha_reunion', 'desc')->pluck('id')->toArray();
         }
         if($request->fecha_inicial!=null && $request->fecha_final!=null){
             $actas_aux = Acta::where('fecha_reunion', '>=', $request->fecha_inicial)->where('fecha_reunion', '<=', $request->fecha_final)->pluck('id')->toArray();
@@ -286,13 +286,11 @@ class ActaController extends Controller
             $actas_tipos_ex = Acta::where('tipo_reunion', 'Extraordinaria')->pluck('id')->toArray();
             $actas_tipos = array_merge($actas_tipos, $actas_tipos_ex);
         }
-        if($request->input('Consejo de Escuela') == 'on'){
+        if($request->input('Consejo') == 'on'){
             $actas_tipos_con = Acta::where('tipo_reunion', 'Consejo de Escuela')->pluck('id')->toArray();
             $actas_tipos = array_merge($actas_tipos, $actas_tipos_con);
         }
-        if(!empty($actas_tipos)){
-            $actas = array_intersect($actas, $actas_tipos);
-        }
+        $actas = array_intersect($actas, $actas_tipos);
         if($request->keywords!=null){
             $actas_keywords = [];
             if($request->input('temas') == 'on'){
@@ -311,9 +309,7 @@ class ActaController extends Controller
                 $actas_tareas = Accion::where('titulo', 'like', '%'.$request->keywords.'%')->where('tipo', 'Ejecucion')->pluck('ref_acta')->toArray();
                 $actas_keywords = array_unique(array_merge($actas_keywords, $actas_tareas));
             }
-            if(!empty($actas_keywords)){
-                $actas = array_intersect($actas, $actas_keywords);
-            }
+            $actas = array_intersect($actas, $actas_keywords);
         }
         $resultados = Acta::find($actas);
         return view('actas.resultados', compact('resultados'));

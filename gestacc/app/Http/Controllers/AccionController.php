@@ -20,7 +20,7 @@ class AccionController extends Controller
     {
         $tareas = Accion::where('ref_usuario', Auth::id())
             ->where('tipo', 'Ejecución')
-            ->where('estado', 'Pendiente')
+            ->where('estado', 'Pendiente')->orderBy('vencimiento', 'ASC')
             ->get();
 
         if(Auth::user()->hasPermissionTo('reunion')){

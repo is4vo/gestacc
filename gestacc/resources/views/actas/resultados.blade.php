@@ -23,6 +23,9 @@
                             <th>Tipo de reunión</th>
                             <th>Numero de reunión</th>
                             <th style="width: 12%">Estado</th>
+                            @can('actas')
+                                <th></th>
+                            @endcan
                             <th></th>
                         </tr>
                     </thead>
@@ -39,6 +42,9 @@
                                     <label style="background-color: rgb(235, 253, 216); color:rgb(1, 80, 1); border-radius:10px; width:100%; text-align: center;">  {{$acta->estado}}  </label>
                                 @endif
                                 </td>
+                                @can('actas')
+                                    <td><a href = "{{ route('actas.edit', $acta->id)}}" class="btn"> <i class="fas fa-edit"></i></a></td>
+                                @endcan
                                 <td><a href = "{{ route('actas.download', $acta->id)}}" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> </a></td>
                             </tr>
                         @endforeach
@@ -58,8 +64,7 @@
     $(document).ready( function () {
         $('#tabla_actas').DataTable({
             "info":     false,
-            "searching": false,
-            "order": [0, 'desc']
+            "order": []
         });
     } );
 </script>

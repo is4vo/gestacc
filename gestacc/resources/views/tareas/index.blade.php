@@ -47,7 +47,7 @@
     $(document).ready( function () {
         $('#tabla_tareas').DataTable({
             "info":     false,
-            "order": [0, 'asc']
+            "order": []
         });
     } );
 </script>
