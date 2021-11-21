@@ -53,7 +53,12 @@
                         <li>
                         @foreach($tema['acciones'] as $accion)
                             @if($accion->tipo == 'Ejecución')
-                                Accion: {{$accion->titulo}} ({{$accion->usuario->name}}).
+                                Accion:
+                                @if($accion->estado == 'Cancelada')
+                                    <s>{{$accion->titulo}} ({{$accion->usuario->name}}).</s>
+                                @else
+                                    {{$accion->titulo}} ({{$accion->usuario->name}}).
+                                @endif
                             @elseif($accion->tipo == 'Acuerdo')
                                 Acuerdo: {{$accion->titulo}}
                             @endif
