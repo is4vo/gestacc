@@ -114,8 +114,14 @@
         </form>
     
         <div id="content">
+            <div class="d-lg-none d-xl-none text-right">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fas fa-align-left"></i>
+                    <span>Menú</span>
+                </button>
+            </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <h2>@yield('titulo')</h2>
+                <h2>@yield('titulo') </h2>
             </nav>
             <div class="whole-page-overlay" id="whole_page_loader">
                 <div class="d-flex justify-content-center">
@@ -129,6 +135,13 @@
 
         </div>
     </div>
-    
+
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 </body>
 </html>

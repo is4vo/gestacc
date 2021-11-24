@@ -20,11 +20,11 @@ class AccionController extends Controller
     {
         $tareas = Accion::where('ref_usuario', Auth::id())
             ->where('tipo', 'Ejecución')
-            ->where('estado', 'Pendiente')->orderBy('vencimiento', 'ASC')
+            ->where('estado', '!=', 'Realizada')->orderBy('vencimiento', 'ASC')
             ->get();
 
         if(Auth::user()->hasPermissionTo('reunion')){
-            $tareas_all = Accion::where('tipo', 'Ejecución')->where('estado', 'Pendiente')->get();
+            $tareas_all = Accion::where('tipo', 'Ejecución')->where('estado', '!=', 'Realizada')->get();
             foreach($tareas_all as $tarea){
                 $tarea['encargado'] = User::find($tarea->ref_usuario);
             }
