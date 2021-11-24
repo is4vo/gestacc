@@ -114,7 +114,7 @@
         </form>
     
         <div id="content">
-            <div class=".d-block .d-sm-none text-right">
+            <div class="d-lg-none d-xl-none text-right">
                 <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     <i class="fas fa-align-left"></i>
                     <span>Menú</span>
