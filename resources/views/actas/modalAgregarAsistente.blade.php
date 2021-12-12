@@ -36,7 +36,6 @@
             var list = $('#lista_asistentes td:nth-child(1)').map(function() {
                 return $(this).text();
             }).get();
-            console.log(list);
             $('input:checked').each(function(){
                 var asis = this.value.split(",");
                 if (jQuery.inArray(asis[1], list) == -1){

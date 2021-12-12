@@ -159,7 +159,7 @@ class ActaController extends Controller
         };
 
         //Crea la aprobacion del acta
-        $miembros = User::role(['Miembro', 'Admin'])->get();
+        $miembros = User::role(['Miembro', 'Admin'])->where('status', 1)->get();
         foreach($miembros as $miembro){
             Aprobacion::create(
                 ['ref_miembro' => $miembro->id,
@@ -273,6 +273,7 @@ class ActaController extends Controller
             $actas_aux = Acta::where('fecha_reunion', '>=', $request->fecha_inicial)->where('fecha_reunion', '<=', $request->fecha_final)->pluck('id')->toArray();
             $actas = array_intersect($actas, $actas_aux);
         }
+        
         if($request->input('participado') == 'on'){
             $actas_aux = Asistente::where('ref_usuario', Auth::id())->where('asiste', 1)->pluck('ref_acta')->toArray();
             $actas = array_intersect($actas, $actas_aux);
@@ -290,7 +291,9 @@ class ActaController extends Controller
             $actas_tipos_con = Acta::where('tipo_reunion', 'Consejo de Escuela')->pluck('id')->toArray();
             $actas_tipos = array_merge($actas_tipos, $actas_tipos_con);
         }
-        $actas = array_intersect($actas, $actas_tipos);
+        if($request->input('Regular') == 'on' || $request->input('Extraordinaria') == 'on' || $request->input('Consejo') == 'on'){
+            $actas = array_intersect($actas, $actas_tipos);
+        }
         if($request->keywords!=null){
             $actas_keywords = [];
             if($request->input('temas') == 'on'){

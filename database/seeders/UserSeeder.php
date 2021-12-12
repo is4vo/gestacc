@@ -24,12 +24,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('rko619asi')
         ])->assignRole('Admin');
 
-        /* User::create([
-            'name' => 'Isavo Castro',
-            'email' => 'isavocastro@gmail.com',
-            'password' => Hash::make($randString)
-        ])->assignRole('Admin')->notify(new NuevoUsuario($randString)); */
-
         User::create([
             'name' => 'Jose Fuentes',
             'email' => 'jfuentes@gmail.com',
