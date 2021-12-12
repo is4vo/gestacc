@@ -1,0 +1,36 @@
+runtime: php74
+
+handlers:
+- url: /(.*\.(gif|png|jpg|css|js))$
+  static_files: public/\1
+  upload: public/.*\.(gif|png|jpg|css|js)$
+
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
+
+env_variables:
+  ## Put production environment variables here.
+  APP_NAME: GESTACC
+  APP_KEY: base64:gB1t5+ZIFoK/WSQfFIWWPDxXvuc4Ub421bOxIfDLYMI=
+  APP_STORAGE: /tmp
+  VIEW_COMPILED_PATH: /tmp
+  SESSION_DRIVER: database
+  ## Set these environment variables according to your CloudSQL configuration.
+  DB_DATABASE: gestacc
+  DB_USERNAME: root
+  DB_PASSWORD: 197681330
+  ## for MYSQL, use DB_SOCKET:
+  DB_SOCKET: "/cloudsql/gestacc:southamerica-east1:gestacc-db"
+  MAIL_MAILER: smtp
+  MAIL_HOST: smtp.gmail.com
+  MAIL_PORT: 587
+  MAIL_USERNAME: isavocastroacuna@gmail.com
+  MAIL_PASSWORD: HoldMeDown1
+  MAIL_ENCRYPTION: tls
+  MAIL_FROM_ADDRESS: isavocastroacuna@gmail.com
+  MAIL_FROM_NAME: "Sistema de gestión de Actas"
+
+
+

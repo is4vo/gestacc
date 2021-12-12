@@ -24,7 +24,7 @@ class AprobacionController extends Controller
         $aprobacion->save();
 
         //Verificar si todos han aprobado
-        $miembros = count(User::role(['Miembro', 'Admin'])->get()->toArray());
+        $miembros = count(Aprobacion::where('ref_acta', $id)->get()->toArray());
         $aprobada = 0;
         $aprobaciones = Aprobacion::where('ref_acta', $id)->get();
         
